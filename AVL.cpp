@@ -8,12 +8,12 @@ void AVLTree<Value>::Insert(Value const& val) {
 
 template<class Value>
 void AVLTree<Value>::Remove(const Value& val) {
-    RemoveValueInNode(val, this -> root);
+    this -> root = RemoveValueInNode(val, this -> root);
 }
 
 template<class Value>
 AVLNode<Value>* AVLTree<Value>::FindValue(const Value& val) {
-    RemoveValueInNode(val, this -> root);
+    return FindValueInNode(val, this -> root);
 }
 
 template<class Value>
@@ -119,9 +119,9 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
                 newNode = newNode -> left_son;
             }
 
+            RemoveValueInNode(newNode -> val, node);
             newNode -> left_son = node -> left_son;
             newNode -> right_son = node -> right_son;
-            RemoveValueInNode(newNode -> val, node);
 
             delete node;
             UpdateHeight(newNode);

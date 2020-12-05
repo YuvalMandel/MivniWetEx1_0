@@ -89,350 +89,353 @@ int main(){
     tree5.Insert(2);
     std::cout << "tree5\n" << printAVLNode(tree5.root, 0);
 
-//	//basic LL not root change
-//	/*correct output
-//	1 BF: 0 Height: 0
-//	2 BF: 0 Height: 1
-//	3 BF: 0 Height: 0
-//	4 BF: 1 Height: 2
-//	5 BF: 0 Height: 0
-//	6 BF: 1 Height: 3
-//	7 BF: 0 Height: 0
-//	8 BF: 1 Height: 1 */
-//	tree.Insert(6,6);
-//	tree.Insert(4,4);
-//	tree.Insert(8,8);
-//	tree.Insert(3,3);
-//	tree.Insert(5,5);
-//	tree.Insert(7,7);
-//	tree.Insert(2,2);
-//	tree.Insert(1,1);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//basic RR not root change
-//	/*correct output
-//	 * 1 BF: 0 Height: 0
-//	2 BF: 0 Height: 1
-//	3 BF: 0 Height: 0
-//	5 BF: 1 Height: 2
-//	7 BF: 0 Height: 0*/
-//	tree.Insert(5,5);
-//	tree.Insert(7,7);
-//	tree.Insert(1,1);
-//	tree.Insert(2,2);
-//	tree.Insert(3,3);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//basic RL not root change
-//	/*correct output
-//	 * 1 BF: 0 Height: 0
-//	2 BF: 0 Height: 1
-//	3 BF: 0 Height: 0
-//	5 BF: 1 Height: 2
-//	7 BF: 0 Height: 0*/
-//	tree.Insert(5,5);
-//	tree.Insert(7,7);
-//	tree.Insert(1,1);
-//	tree.Insert(3,3);
-//	tree.Insert(2,2);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//root deletion no roll successor is a neighbour
-//	/*correct output
-//	2 BF: 0 Height: 0
-//	3 BF: 1 Height: 1
-//	5 BF: 1 Height: 2
-//	6 BF: 0 Height: 0*/
-//	tree.Insert(4,4);
-//	tree.Insert(5,5);
-//	tree.Insert(3,3);
-//	tree.Insert(2,2);
-//	tree.Insert(6,6);
-//	tree.removeNode(4);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//root deletion no roll successor is not a neighbour
-//	/*correct output
-//	2 BF: 0 Height: 0
-//	3 BF: 1 Height: 1
-//	5 BF: 0 Height: 2
-//	6 BF: 0 Height: 0
-//	7 BF: 0 Height: 1
-//	8 BF: 0 Height: 0 */
-//	tree.Insert(4,4);
-//	tree.Insert(3,3);
-//	tree.Insert(7,7);
-//	tree.Insert(2,2);
-//	tree.Insert(5,5);
-//	tree.Insert(8,8);
-//	tree.Insert(6,6);
-//	tree.removeNode(4);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//node deletion no roll successor is a neighbour case7
-//	/*correct output
-//	1 BF: 0 Height: 0
-//	2 BF: 1 Height: 1
-//	4 BF: 1 Height: 2
-//	5 BF: 0 Height: 0
-//	7 BF: 1 Height: 3
-//	8 BF: -1 Height: 1
-//	9 BF: 0 Height: 0*/
-//	tree.Insert(7,7);
-//	tree.Insert(3,3);
-//	tree.Insert(8,8);
-//	tree.Insert(2,2);
-//	tree.Insert(4,4);
-//	tree.Insert(9,9);
-//	tree.Insert(5,5);
-//	tree.Insert(1,1);
-//	tree.removeNode(3);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//node deletion no roll successor is not a neighbour case8
-//	/*correct output
-//	1 BF: 0 Height: 0
-//	2 BF: 1 Height: 1
-//	5 BF: 0 Height: 2
-//	6 BF: 0 Height: 0
-//	7 BF: 0 Height: 1
-//	8 BF: 0 Height: 0
-//	9 BF: 0 Height: 3
-//	10 BF: 0 Height: 0
-//	12 BF: -1 Height: 2
-//	13 BF: -1 Height: 1
-//	14 BF: 0 Height: 0*/
-//	tree.Insert(9,9);
-//	tree.Insert(3,3);
-//	tree.Insert(12,12);
-//	tree.Insert(2,2);
-//	tree.Insert(7,7);
-//	tree.Insert(10,10);
-//	tree.Insert(13,13);
-//	tree.Insert(1,1);
-//	tree.Insert(5,5);
-//	tree.Insert(8,8);
-//	tree.Insert(14,14);
-//	tree.Insert(6,6);
-//	tree.removeNode(3);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//node deletion causing LR case9
-//	/*correct output
-//	1 BF: 0 Height: 0
-//	2 BF: 0 Height: 1
-//	3 BF: 0 Height: 0
-//	4 BF: 0 Height: 2
-//	7 BF: -1 Height: 1
-//	8 BF: 0 Height: 0*/
-//	tree.Insert(7,7);
-//	tree.Insert(2,2);
-//	tree.Insert(8,8);
-//	tree.Insert(1,1);
-//	tree.Insert(4,4);
-//	tree.Insert(9,9);
-//	tree.Insert(3,3);
-//	tree.removeNode(9);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//node deletion causing LL case10
-//	/*correct output
-//	1 BF: 0 Height: 0
-//	2 BF: 1 Height: 1
-//	3 BF: 0 Height: 2
-//	4 BF: 0 Height: 0
-//	7 BF: 0 Height: 1
-//	8 BF: 0 Height: 0*/
-//	tree.Insert(7,7);
-//	tree.Insert(3,3);
-//	tree.Insert(8,8);
-//	tree.Insert(2,2);
-//	tree.Insert(4,4);
-//	tree.Insert(9,9);
-//	tree.Insert(1,1);
-//	tree.removeNode(9);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//node deletion causing RR case11
-//	/*correct output
-//	2 BF: 0 Height: 0
-//	3 BF: 0 Height: 1
-//	7 BF: 0 Height: 0
-//	8 BF: 0 Height: 2
-//	9 BF: -1 Height: 1
-//	10 BF: 0 Height: 0*/
-//	tree.Insert(3,3);
-//	tree.Insert(2,2);
-//	tree.Insert(8,8);
-//	tree.Insert(7,7);
-//	tree.Insert(1,1);
-//	tree.Insert(9,9);
-//	tree.Insert(10,10);
-//	tree.removeNode(1);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//node deletion causing RL case12
-//	/*correct output
-//	* 2 BF: 0 Height: 0
-//	3 BF: 1 Height: 1
-//	7 BF: 0 Height: 2
-//	10 BF: 0 Height: 0
-//	13 BF: 0 Height: 1
-//	14 BF: 0 Height: 0*/
-//	tree.Insert(3,3);
-//	tree.Insert(2,2);
-//	tree.Insert(13,13);
-//	tree.Insert(7,7);
-//	tree.Insert(1,1);
-//	tree.Insert(14,14);
-//	tree.Insert(10,10);
-//	tree.removeNode(1);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//double rotations RL and RR case 13
-//	/*correct output
-//	3 BF: 0 Height: 0
-//	5 BF: 0 Height: 1
-//	7 BF: 0 Height: 0
-//	9 BF: 0 Height: 2
-//	11 BF: 0 Height: 0
-//	13 BF: 1 Height: 1
-//	15 BF: 0 Height: 3
-//	17 BF: 0 Height: 0
-//	19 BF: -1 Height: 2
-//	21 BF: -1 Height: 1
-//	23 BF: 0 Height: 0*/
-//	tree.Insert(9,9);
-//	tree.Insert(3,3);
-//	tree.Insert(15,15);
-//	tree.Insert(1,1);
-//	tree.Insert(7,7);
-//	tree.Insert(13,13);
-//	tree.Insert(19,19);
-//	tree.Insert(5,5);
-//	tree.Insert(11,11);
-//	tree.Insert(17,17);
-//	tree.Insert(21,21);
-//	tree.Insert(23,23);
-//	tree.removeNode(1);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//double rotations RR and RR case 14
-//	/*correct output
-//	3 BF: 0 Height: 0
-//	7 BF: 0 Height: 1
-//	8 BF: 0 Height: 0
-//	9 BF: 0 Height: 2
-//	11 BF: 0 Height: 0
-//	13 BF: 1 Height: 1
-//	15 BF: 0 Height: 3
-//	17 BF: 0 Height: 0
-//	19 BF: -1 Height: 2
-//	21 BF: -1 Height: 1
-//	23 BF: 0 Height: 0*/
-//	tree.Insert(9,9);
-//	tree.Insert(3,3);
-//	tree.Insert(15,15);
-//	tree.Insert(1,1);
-//	tree.Insert(7,7);
-//	tree.Insert(13,13);
-//	tree.Insert(19,19);
-//	tree.Insert(8,8);
-//	tree.Insert(11,11);
-//	tree.Insert(17,17);
-//	tree.Insert(21,21);
-//	tree.Insert(23,23);
-//	tree.removeNode(1);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//double rotations RL and LL case 15
-//	/*correct output
-//	6 BF: 0 Height: 0
-//	7 BF: 1 Height: 1
-//	8 BF: 1 Height: 2
-//	9 BF: 0 Height: 0
-//	10 BF: 0 Height: 3
-//	11 BF: -1 Height: 1
-//	12 BF: 0 Height: 0
-//	15 BF: 0 Height: 2
-//	17 BF: 0 Height: 0
-//	18 BF: 0 Height: 1
-//	20 BF: 0 Height: 0
-//	 */
-//	tree.Insert(15,15);
-//	tree.Insert(10,10);
-//	tree.Insert(20,20);
-//	tree.Insert(8,8);
-//	tree.Insert(11,11);
-//	tree.Insert(17,17);
-//	tree.Insert(21,21);
-//	tree.Insert(7,7);
-//	tree.Insert(9,9);
-//	tree.Insert(12,12);
-//	tree.Insert(18,18);
-//	tree.Insert(6,6);
-//	tree.removeNode(21);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//double rotations LR and LL case 16
-//	/*correct output
-//	6 BF: 0 Height: 0
-//	7 BF: 1 Height: 1
-//	8 BF: 1 Height: 2
-//	9 BF: 0 Height: 0
-//	10 BF: 0 Height: 3
-//	11 BF: -1 Height: 1
-//	12 BF: 0 Height: 0
-//	15 BF: 0 Height: 2
-//	20 BF: 0 Height: 0
-//	21 BF: 0 Height: 1
-//	22 BF: 0 Height: 0 */
-//	tree.Insert(15,15);
-//	tree.Insert(10,10);
-//	tree.Insert(20,20);
-//	tree.Insert(8,8);
-//	tree.Insert(11,11);
-//	tree.Insert(17,17);
-//	tree.Insert(22,22);
-//	tree.Insert(7,7);
-//	tree.Insert(9,9);
-//	tree.Insert(12,12);
-//	tree.Insert(21,21);
-//	tree.Insert(6,6);
-//	tree.removeNode(17);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//delete node cause LR
-//	/*correct output
-//	 * 2 BF: 0 Height: 0
-//	3 BF: -1 Height: 2
-//	4 BF: 0 Height: 0
-//	6 BF: 1 Height: 1*/
-//
-//	tree.Insert(5,5);
-//	tree.Insert(3,3);
-//	tree.Insert(6,6);
-//	tree.Insert(2,2);
-//	tree.Insert(4,4);
-//	tree.removeNode(5);
-//	tree.printTree();
-//	tree.treeClear();
-//
+	//basic LL not root change
+    AVLTree<int> tree6;
+	/*correct output
+	1 BF: 0 Height: 0
+	2 BF: 0 Height: 1
+	3 BF: 0 Height: 0
+	4 BF: 1 Height: 2
+	5 BF: 0 Height: 0
+	6 BF: 1 Height: 3
+	7 BF: 0 Height: 0
+	8 BF: 1 Height: 1 */
+    tree6.Insert(6);
+    tree6.Insert(4);
+    tree6.Insert(8);
+    tree6.Insert(3);
+    tree6.Insert(5);
+    tree6.Insert(7);
+    tree6.Insert(2);
+    tree6.Insert(1);
+    std::cout << "tree6\n" << printAVLNode(tree6.root, 0);
+
+	//basic RR not root change
+    AVLTree<int> tree7;
+	/*correct output
+	 * 1 BF: 0 Height: 0
+	2 BF: 0 Height: 1
+	3 BF: 0 Height: 0
+	5 BF: 1 Height: 2
+	7 BF: 0 Height: 0*/
+    tree7.Insert(5);
+    tree7.Insert(7);
+    tree7.Insert(1);
+    tree7.Insert(2);
+    tree7.Insert(3);
+    std::cout << "tree7\n" << printAVLNode(tree7.root, 0);
+
+	//basic RL not root change
+    AVLTree<int> tree8;
+	/*correct output
+	 * 1 BF: 0 Height: 0
+	2 BF: 0 Height: 1
+	3 BF: 0 Height: 0
+	5 BF: 1 Height: 2
+	7 BF: 0 Height: 0*/
+    tree8.Insert(5);
+    tree8.Insert(7);
+    tree8.Insert(1);
+    tree8.Insert(3);
+    tree8.Insert(2);
+    std::cout << "tree8\n" << printAVLNode(tree8.root, 0);
+
+	//root deletion no roll successor is a neighbour
+    AVLTree<int> tree9;
+	/*correct output
+	2 BF: 0 Height: 0
+	3 BF: 1 Height: 1
+	5 BF: 1 Height: 2
+	6 BF: 0 Height: 0*/
+    tree9.Insert(4);
+    tree9.Insert(5);
+    tree9.Insert(3);
+    tree9.Insert(2);
+    tree9.Insert(6);
+    std::cout << "tree9 before remove\n" << printAVLNode(tree9.root, 0);
+    tree9.Remove(4);
+    std::cout << "tree9\n" << printAVLNode(tree9.root, 0);
+
+	//root deletion no roll successor is not a neighbour
+    AVLTree<int> tree10;
+	/*correct output
+	2 BF: 0 Height: 0
+	3 BF: 1 Height: 1
+	5 BF: 0 Height: 2
+	6 BF: 0 Height: 0
+	7 BF: 0 Height: 1
+	8 BF: 0 Height: 0 */
+    tree10.Insert(4);
+    tree10.Insert(3);
+    tree10.Insert(7);
+    tree10.Insert(2);
+    tree10.Insert(5);
+    tree10.Insert(8);
+    tree10.Insert(6);
+    tree10.Remove(4);
+    std::cout << "tree10\n" << printAVLNode(tree10.root, 0);
+
+	//node deletion no roll successor is a neighbour case7
+    AVLTree<int> tree11;
+	/*correct output
+	1 BF: 0 Height: 0
+	2 BF: 1 Height: 1
+	4 BF: 1 Height: 2
+	5 BF: 0 Height: 0
+	7 BF: 1 Height: 3
+	8 BF: -1 Height: 1
+	9 BF: 0 Height: 0*/
+    tree11.Insert(7);
+    tree11.Insert(3);
+    tree11.Insert(8);
+    tree11.Insert(2);
+    tree11.Insert(4);
+    tree11.Insert(9);
+    tree11.Insert(5);
+    tree11.Insert(1);
+    tree11.Remove(3);
+    std::cout << "tree11\n" << printAVLNode(tree11.root, 0);
+
+
+	//node deletion no roll successor is not a neighbour case8
+    AVLTree<int> tree12;
+	/*correct output
+	1 BF: 0 Height: 0
+	2 BF: 1 Height: 1
+	5 BF: 0 Height: 2
+	6 BF: 0 Height: 0
+	7 BF: 0 Height: 1
+	8 BF: 0 Height: 0
+	9 BF: 0 Height: 3
+	10 BF: 0 Height: 0
+	12 BF: -1 Height: 2
+	13 BF: -1 Height: 1
+	14 BF: 0 Height: 0*/
+    tree12.Insert(9);
+    tree12.Insert(3);
+    tree12.Insert(12);
+    tree12.Insert(2);
+    tree12.Insert(7);
+    tree12.Insert(10);
+    tree12.Insert(13);
+    tree12.Insert(1);
+    tree12.Insert(5);
+    tree12.Insert(8);
+    tree12.Insert(14);
+    tree12.Insert(6);
+    tree12.Remove(3);
+    std::cout << "tree12\n" << printAVLNode(tree12.root, 0);
+
+	//node deletion causing LR case9
+    AVLTree<int> tree13;
+	/*correct output
+	1 BF: 0 Height: 0
+	2 BF: 0 Height: 1
+	3 BF: 0 Height: 0
+	4 BF: 0 Height: 2
+	7 BF: -1 Height: 1
+	8 BF: 0 Height: 0*/
+    tree13.Insert(7);
+    tree13.Insert(2);
+    tree13.Insert(8);
+    tree13.Insert(1);
+    tree13.Insert(4);
+    tree13.Insert(9);
+    tree13.Insert(3);
+    tree13.Remove(9);
+    std::cout << "tree13\n" << printAVLNode(tree13.root, 0);
+
+	//node deletion causing LL case10
+    AVLTree<int> tree14;
+	/*correct output
+	1 BF: 0 Height: 0
+	2 BF: 1 Height: 1
+	3 BF: 0 Height: 2
+	4 BF: 0 Height: 0
+	7 BF: 0 Height: 1
+	8 BF: 0 Height: 0*/
+    tree14.Insert(7);
+    tree14.Insert(3);
+    tree14.Insert(8);
+    tree14.Insert(2);
+    tree14.Insert(4);
+    tree14.Insert(9);
+    tree14.Insert(1);
+    tree14.Remove(9);
+    std::cout << "tree14\n" << printAVLNode(tree14.root, 0);
+
+	//node deletion causing RR case11
+    AVLTree<int> tree15;
+	/*correct output
+	2 BF: 0 Height: 0
+	3 BF: 0 Height: 1
+	7 BF: 0 Height: 0
+	8 BF: 0 Height: 2
+	9 BF: -1 Height: 1
+	10 BF: 0 Height: 0*/
+    tree15.Insert(3);
+    tree15.Insert(2);
+    tree15.Insert(8);
+    tree15.Insert(7);
+    tree15.Insert(1);
+    tree15.Insert(9);
+    tree15.Insert(10);
+    tree15.Remove(1);
+    std::cout << "tree15\n" << printAVLNode(tree15.root, 0);
+
+	//node deletion causing RL case12
+    AVLTree<int> tree16;
+	/*correct output
+	* 2 BF: 0 Height: 0
+	3 BF: 1 Height: 1
+	7 BF: 0 Height: 2
+	10 BF: 0 Height: 0
+	13 BF: 0 Height: 1
+	14 BF: 0 Height: 0*/
+    tree16.Insert(3);
+    tree16.Insert(2);
+    tree16.Insert(13);
+    tree16.Insert(7);
+    tree16.Insert(1);
+    tree16.Insert(14);
+    tree16.Insert(10);
+    tree16.Remove(1);
+    std::cout << "tree16\n" << printAVLNode(tree16.root, 0);
+
+	//double rotations RL and RR case 13
+    AVLTree<int> tree17;
+	/*correct output
+	3 BF: 0 Height: 0
+	5 BF: 0 Height: 1
+	7 BF: 0 Height: 0
+	9 BF: 0 Height: 2
+	11 BF: 0 Height: 0
+	13 BF: 1 Height: 1
+	15 BF: 0 Height: 3
+	17 BF: 0 Height: 0
+	19 BF: -1 Height: 2
+	21 BF: -1 Height: 1
+	23 BF: 0 Height: 0*/
+    tree17.Insert(9);
+    tree17.Insert(3);
+    tree17.Insert(15);
+    tree17.Insert(1);
+    tree17.Insert(7);
+    tree17.Insert(13);
+    tree17.Insert(19);
+    tree17.Insert(5);
+    tree17.Insert(11);
+    tree17.Insert(17);
+    tree17.Insert(21);
+    tree17.Insert(23);
+    tree17.Remove(1);
+    std::cout << "tree17\n" << printAVLNode(tree17.root, 0);
+
+	//double rotations RR and RR case 14
+    AVLTree<int> tree18;
+	/*correct output
+	3 BF: 0 Height: 0
+	7 BF: 0 Height: 1
+	8 BF: 0 Height: 0
+	9 BF: 0 Height: 2
+	11 BF: 0 Height: 0
+	13 BF: 1 Height: 1
+	15 BF: 0 Height: 3
+	17 BF: 0 Height: 0
+	19 BF: -1 Height: 2
+	21 BF: -1 Height: 1
+	23 BF: 0 Height: 0*/
+    tree18.Insert(9);
+    tree18.Insert(3);
+    tree18.Insert(15);
+    tree18.Insert(1);
+    tree18.Insert(7);
+    tree18.Insert(13);
+    tree18.Insert(19);
+    tree18.Insert(8);
+    tree18.Insert(11);
+    tree18.Insert(17);
+    tree18.Insert(21);
+    tree18.Insert(23);
+    tree18.Remove(1);
+    std::cout << "tree18\n" << printAVLNode(tree18.root, 0);
+
+	//double rotations RL and LL case 15
+    AVLTree<int> tree19;
+	/*correct output
+	6 BF: 0 Height: 0
+	7 BF: 1 Height: 1
+	8 BF: 1 Height: 2
+	9 BF: 0 Height: 0
+	10 BF: 0 Height: 3
+	11 BF: -1 Height: 1
+	12 BF: 0 Height: 0
+	15 BF: 0 Height: 2
+	17 BF: 0 Height: 0
+	18 BF: 0 Height: 1
+	20 BF: 0 Height: 0
+	 */
+    tree19.Insert(15);
+    tree19.Insert(10);
+    tree19.Insert(20);
+    tree19.Insert(8);
+    tree19.Insert(11);
+    tree19.Insert(17);
+    tree19.Insert(21);
+    tree19.Insert(7);
+    tree19.Insert(9);
+    tree19.Insert(12);
+    tree19.Insert(18);
+    tree19.Insert(6);
+    tree19.Remove(21);
+    std::cout << "tree19\n" << printAVLNode(tree19.root, 0);
+
+	//double rotations LR and LL case 16
+    AVLTree<int> tree20;
+	/*correct output
+	6 BF: 0 Height: 0
+	7 BF: 1 Height: 1
+	8 BF: 1 Height: 2
+	9 BF: 0 Height: 0
+	10 BF: 0 Height: 3
+	11 BF: -1 Height: 1
+	12 BF: 0 Height: 0
+	15 BF: 0 Height: 2
+	20 BF: 0 Height: 0
+	21 BF: 0 Height: 1
+	22 BF: 0 Height: 0 */
+    tree20.Insert(15);
+    tree20.Insert(10);
+    tree20.Insert(20);
+    tree20.Insert(8);
+    tree20.Insert(11);
+    tree20.Insert(17);
+    tree20.Insert(22);
+    tree20.Insert(7);
+    tree20.Insert(9);
+    tree20.Insert(12);
+    tree20.Insert(21);
+    tree20.Insert(6);
+    tree20.Remove(17);
+    std::cout << "tree20\n" << printAVLNode(tree20.root, 0);
+
+	//delete node cause LR
+    AVLTree<int> tree21;
+	/*correct output
+	 * 2 BF: 0 Height: 0
+	3 BF: -1 Height: 2
+	4 BF: 0 Height: 0
+	6 BF: 1 Height: 1*/
+
+    tree21.Insert(5);
+    tree21.Insert(3);
+    tree21.Insert(6);
+    tree21.Insert(2);
+    tree21.Insert(4);
+    std::cout << "tree21 before remove\n" << printAVLNode(tree21.root, 0);
+    tree21.Remove(5);
+    std::cout << "tree21\n" << printAVLNode(tree21.root, 0);
+
 //	//delete node cause LR
 //	/*correct output
 //	 * 2 BF: 0 Height: 0
