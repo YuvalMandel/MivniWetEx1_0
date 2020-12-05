@@ -11,8 +11,8 @@ class AVLNode{
 public:
     Value val;
 //    AVLNode* father;
-    AVLNode* right_son;
-    AVLNode* left_son;
+    AVLNode<Value>* right_son;
+    AVLNode<Value>* left_son;
     int height;
 
     AVLNode(const Value& val):
@@ -29,23 +29,23 @@ class AVLTree{
 public:
 
     AVLTree() : root(nullptr){}
-    AVLTree(Value*){}
+    AVLTree(Value*){} // TODO
     ~AVLTree() { DestroyTree(root);}
 
     AVLNode<Value>* root;
 
     void Insert(const Value& val);
     void Remove(const Value& val);
-    AVLNode<Value>* FindData;
+    AVLNode<Value>* FindValue(const Value& val);
 
 private:
 
     void DestroyTree(AVLNode<Value>* root);
-    AVLNode<Value>* FindDataInNode(AVLNode<Value>* node);
-    AVLNode<Value>* InsertDataInNode(const Value& val, AVLNode<Value>* node);
-    AVLNode<Value>* RemoveDataInNode(const Value& val, AVLNode<Value>* node);
+    AVLNode<Value>* FindValueInNode(const Value& val, AVLNode<Value>* node);
+    AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node);
+    AVLNode<Value>* RemoveValueInNode(const Value& val, AVLNode<Value>* node);
     void UpdateHeight(AVLNode<Value>* node);
-    void BalanceNode(AVLNode<Value>* node);
+    AVLNode<Value>* BalanceNode(AVLNode<Value>* node);
     int CalcBalanceFactor(AVLNode<Value>* node);
 
     AVLNode<Value>* LLRotate(AVLNode<Value>* node);

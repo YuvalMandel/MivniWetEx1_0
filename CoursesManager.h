@@ -7,16 +7,56 @@
 
 #include <iostream>
 #include "library.h"
+#include "AVL.h"
+
+class Lecture{
+
+public:
+
+    int lecture_id;
+    int watch_num;
+    void* holder_sub_tree_course;
+
+};
+
+class SubTreeCourse{
+
+public:
+
+    int course_id;
+    AVLTree<Lecture> lectures_tree;
+    void* holder_time_tree;
+
+};
+
+class TimeTree{
+
+    int time_watched;
+    AVLTree<SubTreeCourse> subtree_tree;
+    TimeTree* bigger;
+    TimeTree* smaller;
+
+};
+
+class Course{
+
+public:
+    int course_id;
+    Lecture* lectures;
+
+};
 
 class CoursesManager {
 private:
 
     // This is the root of the course tree.
-
+    AVLTree<Course> course_tree;
 
     // This is an internal pointer to the largest time tree.
+    TimeTree* largest_time_tree;
 
     // This is an internal pointer to the smallest time tree.
+    TimeTree* smallest_time_tree;
 
 
 public:
