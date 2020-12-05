@@ -1,6 +1,3 @@
-//
-// Created by Yuval.M on 04/12/2020.
-//
 #include "AVL.h"
 #include <algorithm>
 
@@ -69,27 +66,45 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
     if(node == nullptr){
         return nullptr;
     }
-    else if(node -> val == val){
-        return nullptr; // TODO add exception
+    else if(val < node -> val){
+        node -> left_son = RemoveValueInNode(val, node -> left_son);
+        UpdateHeight(node);
+        return BalanceNode(node);
     }
-    else if (val < node -> val){
-        if(node -> left_son == nullptr){
-            node -> left_son = new AVLNode<Value>(val);
-        }
-        else{
-            InsertValueInNode(val, node -> left_son);
+    else if(val > node -> val){
+        node -> right_son = RemoveValueInNode(val, node -> right_son);
+        UpdateHeight(node);
+        return BalanceNode(node);
+    }else{
+        if(node -> right_son == nullptr && node -> left_son == nullptr){
+            delete node;
+            return nullptr;
+        } else if(node -> right_son == nullptr){
+            AVLNode<Value> *newNode = node -> left_son;
+            delete node;
+            return newNode;
+        } else if(node -> left_son == nullptr){
+            AVLNode<Value> *newNode = node -> right_son;
+            delete node;
+            return newNode;
+        } else{
+
+            // Go to the smallest node under the current node.
+            AVLNode<Value> *newNode = node -> right_son;
+            while (newNode -> left_son != nullptr){
+                newNode = newNode -> left_son;
+            }
+
+            newNode -> left_son = node -> left_son;
+            newNode -> right_son = node -> right_son;
+            RemoveValueInNode(newNode -> val, node);
+
+            delete node;
+            UpdateHeight(newNode);
+            return BalanceNode(newNode);
+
         }
     }
-    else if (val > node -> val){
-        if(node -> right_son == nullptr){
-            node -> right_son = new AVLNode<Value>(val);
-        }
-        else{
-            insertValueInNode(val, node -> right_son);
-        }
-    }
-    UpdateHeight(node);
-    return BalanceNode(node);
 }
 
 template<class Value>
