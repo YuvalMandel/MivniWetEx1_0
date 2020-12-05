@@ -15,10 +15,7 @@ public:
     AVLNode<Value>* left_son;
     int height;
 
-    AVLNode(const Value& val):
-    Value(val),
-    right_son(nullptr),
-    left_son(nullptr),
+    AVLNode(const Value& val):val(val),right_son(nullptr),left_son(nullptr),
     height(1){};
 
 };
@@ -29,18 +26,21 @@ class AVLTree{
 public:
 
     AVLTree() : root(nullptr){}
-    AVLTree(Value*){} // TODO
-    ~AVLTree() { DestroyTree(root);}
+//    AVLTree(Value*){} // TODO
+//    ~AVLTree() { DestroyTree(root);}
 
     AVLNode<Value>* root;
 
-    void Insert(const Value& val);
+    void Insert(Value const& val);
+//    void Insert(Value const& val) {
+//        InsertValueInNode(val, this -> root);
+//    }
     void Remove(const Value& val);
     AVLNode<Value>* FindValue(const Value& val);
 
 private:
 
-    void DestroyTree(AVLNode<Value>* root);
+//    void DestroyTree(AVLNode<Value>* root);
     AVLNode<Value>* FindValueInNode(const Value& val, AVLNode<Value>* node);
     AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node);
     AVLNode<Value>* RemoveValueInNode(const Value& val, AVLNode<Value>* node);
@@ -54,5 +54,7 @@ private:
     AVLNode<Value>* RRRotate(AVLNode<Value>* node);
 
 };
+
+#include "AVL.cpp"
 
 #endif //MIVNIWETEX1_0_AVL_H

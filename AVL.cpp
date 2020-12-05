@@ -2,7 +2,7 @@
 #include <algorithm>
 
 template<class Value>
-void AVLTree<Value>::Insert(const Value& val) {
+void AVLTree<Value>::Insert(Value const& val) {
     InsertValueInNode(val, this -> root);
 }
 
@@ -45,7 +45,7 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Valu
             node -> left_son = new AVLNode<Value>(val);
         }
         else{
-            InsertValueInNode(val, node -> left_son);
+            this -> InsertValueInNode(val, node -> left_son);
         }
     }
     else if (val > node -> val){
@@ -53,7 +53,7 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Valu
             node -> right_son = new AVLNode<Value>(val);
         }
         else{
-            insertValueInNode(val, node -> right_son);
+            this -> InsertValueInNode(val, node -> right_son);
         }
     }
     UpdateHeight(node);
@@ -167,4 +167,39 @@ AVLNode<Value>* AVLTree<Value>::BalanceNode(AVLNode<Value> *node) {
 
 }
 
+template<class Value>
+AVLNode<Value>* AVLTree<Value>::LLRotate(AVLNode<Value> *node) {
+    AVLNode<Value> *temp = node ->left_son;
+    node ->left_son = temp -> right_son;
+    temp -> right_son = node;
+    UpdateHeight(node);
+    UpdateHeight(temp);
+    return temp;
+}
+
+template<class Value>
+AVLNode<Value>* AVLTree<Value>::RRRotate(AVLNode<Value> *node) {
+    AVLNode<Value> *temp = node ->right_son;
+    node ->right_son = temp -> left_son;
+    temp -> left_son = node;
+    UpdateHeight(node);
+    UpdateHeight(temp);
+    return temp;
+}
+
+template<class Value>
+AVLNode<Value>* AVLTree<Value>::LRRotate(AVLNode<Value> *node) {
+    AVLNode<Value> *temp = node ->left_son;
+    node -> left_son = RRRotate(temp);
+    UpdateHeight(node);
+    return LLRotate(node);
+}
+
+template<class Value>
+AVLNode<Value>* AVLTree<Value>::RLRotate(AVLNode<Value> *node) {
+    AVLNode<Value> *temp = node ->right_son;
+    node -> right_son = LLRotate(temp);
+    UpdateHeight(node);
+    return RRRotate(node);
+}
 
