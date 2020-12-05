@@ -119,9 +119,14 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
                 newNode = newNode -> left_son;
             }
 
-            RemoveValueInNode(newNode -> val, node);
+            node -> right_son = RemoveValueInNode(
+                    newNode -> val, node -> right_son);
+
             newNode -> left_son = node -> left_son;
             newNode -> right_son = node -> right_son;
+
+            node -> left_son = nullptr;
+            node -> right_son = nullptr;
 
             delete node;
             UpdateHeight(newNode);
