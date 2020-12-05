@@ -26,21 +26,21 @@ class AVLTree{
 public:
 
     AVLTree() : root(nullptr){}
-//    AVLTree(Value*){} // TODO
-//    ~AVLTree() { DestroyTree(root);}
+    AVLTree(Value* vals, int length) :root(createTreeNode(vals, 0, length-1)){}
+    ~AVLTree() { DestroyTree(root);}
 
     AVLNode<Value>* root;
 
     void Insert(Value const& val);
-//    void Insert(Value const& val) {
-//        InsertValueInNode(val, this -> root);
-//    }
+
     void Remove(const Value& val);
     AVLNode<Value>* FindValue(const Value& val);
 
 private:
 
-//    void DestroyTree(AVLNode<Value>* root);
+    AVLNode<Value>* createTreeNode(Value* vals, int start_index, int
+    final_index);
+    void DestroyTree(AVLNode<Value>* root);
     AVLNode<Value>* FindValueInNode(const Value& val, AVLNode<Value>* node);
     AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node);
     AVLNode<Value>* RemoveValueInNode(const Value& val, AVLNode<Value>* node);

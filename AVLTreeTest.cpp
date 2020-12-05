@@ -22,15 +22,15 @@ std::string printAVLNode(AVLNode<Value>* avl_node,
         std::string right_print = printAVLNode(avl_node -> right_son, layer +
         1);
         std::string left_print = printAVLNode(avl_node -> left_son, layer + 1);
-        return std::to_string(layer) + " " + std::to_string(avl_node -> val)
-        + right_print + left_print;
+        return "layer: " + std::to_string(layer) +
+        " value: " + std::to_string (avl_node-> val)
+        + "\n" + "left " + left_print + "right " + right_print;
     }
 
     return "NULL\n";
 }
 
 int main(){
-    AVLTree<int> tree;
 
 	//Specific Cases
 
@@ -40,33 +40,33 @@ int main(){
 	3 BF: 0 Height: 0 */
 
 	//basic LL root change
-	tree.Insert(3);
-	tree.Insert(2);
-	tree.Insert(1);
-    std::string result = printAVLNode(tree.root, 0);
-    std::cout << result;
-//	tree.treeClear();
+    AVLTree<int> tree1;
+	tree1.Insert(3);
+	tree1.Insert(2);
+	tree1.Insert(1);
+    std::cout << "tree1\n" << printAVLNode(tree1.root, 0);
 
-//	//basic LR root change
-//	tree.addNode(3,3);
-//	tree.addNode(1,1);
-//	tree.addNode(2,2);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//basic RR root change
-//	tree.addNode(1,1);
-//	tree.addNode(2,2);
-//	tree.addNode(3,3);
-//	tree.printTree();
-//	tree.treeClear();
-//
-//	//basic RL root change
-//	tree.addNode(1,1);
-//	tree.addNode(3,3);
-//	tree.addNode(2,2);
-//	tree.printTree();
-//	tree.treeClear();
+    AVLTree<int> tree2;
+	//basic LR root change
+    tree2.Insert(3);
+    tree2.Insert(1);
+    tree2.Insert(2);
+    std::cout << "tree2\n" << printAVLNode(tree2.root, 0);
+
+	//basic RR root change
+    AVLTree<int> tree3;
+    tree3.Insert(1);
+    tree3.Insert(2);
+    tree3.Insert(3);
+    std::cout << "tree3\n" << printAVLNode(tree3.root, 0);
+
+	//basic RL root change
+    AVLTree<int> tree4;
+    tree4.Insert(1);
+    tree4.Insert(3);
+    tree4.Insert(2);
+    std::cout << "tree4\n" << printAVLNode(tree4.root, 0);
+    
 //
 //	//basic LR not root change
 //	/*correct output
@@ -78,14 +78,14 @@ int main(){
 //	6 BF: 1 Height: 3
 //	7 BF: 0 Height: 0
 //	8 BF: 1 Height: 1 */
-//	tree.addNode(6,6);
-//	tree.addNode(4,4);
-//	tree.addNode(8,8);
-//	tree.addNode(3,3);
-//	tree.addNode(5,5);
-//	tree.addNode(7,7);
-//	tree.addNode(1,1);
-//	tree.addNode(2,2);
+//	tree.Insert(6,6);
+//	tree.Insert(4,4);
+//	tree.Insert(8,8);
+//	tree.Insert(3,3);
+//	tree.Insert(5,5);
+//	tree.Insert(7,7);
+//	tree.Insert(1,1);
+//	tree.Insert(2,2);
 //	tree.printTree();
 //	tree.treeClear();
 //
@@ -99,14 +99,14 @@ int main(){
 //	6 BF: 1 Height: 3
 //	7 BF: 0 Height: 0
 //	8 BF: 1 Height: 1 */
-//	tree.addNode(6,6);
-//	tree.addNode(4,4);
-//	tree.addNode(8,8);
-//	tree.addNode(3,3);
-//	tree.addNode(5,5);
-//	tree.addNode(7,7);
-//	tree.addNode(2,2);
-//	tree.addNode(1,1);
+//	tree.Insert(6,6);
+//	tree.Insert(4,4);
+//	tree.Insert(8,8);
+//	tree.Insert(3,3);
+//	tree.Insert(5,5);
+//	tree.Insert(7,7);
+//	tree.Insert(2,2);
+//	tree.Insert(1,1);
 //	tree.printTree();
 //	tree.treeClear();
 //
@@ -117,11 +117,11 @@ int main(){
 //	3 BF: 0 Height: 0
 //	5 BF: 1 Height: 2
 //	7 BF: 0 Height: 0*/
-//	tree.addNode(5,5);
-//	tree.addNode(7,7);
-//	tree.addNode(1,1);
-//	tree.addNode(2,2);
-//	tree.addNode(3,3);
+//	tree.Insert(5,5);
+//	tree.Insert(7,7);
+//	tree.Insert(1,1);
+//	tree.Insert(2,2);
+//	tree.Insert(3,3);
 //	tree.printTree();
 //	tree.treeClear();
 //
@@ -132,11 +132,11 @@ int main(){
 //	3 BF: 0 Height: 0
 //	5 BF: 1 Height: 2
 //	7 BF: 0 Height: 0*/
-//	tree.addNode(5,5);
-//	tree.addNode(7,7);
-//	tree.addNode(1,1);
-//	tree.addNode(3,3);
-//	tree.addNode(2,2);
+//	tree.Insert(5,5);
+//	tree.Insert(7,7);
+//	tree.Insert(1,1);
+//	tree.Insert(3,3);
+//	tree.Insert(2,2);
 //	tree.printTree();
 //	tree.treeClear();
 //
@@ -146,11 +146,11 @@ int main(){
 //	3 BF: 1 Height: 1
 //	5 BF: 1 Height: 2
 //	6 BF: 0 Height: 0*/
-//	tree.addNode(4,4);
-//	tree.addNode(5,5);
-//	tree.addNode(3,3);
-//	tree.addNode(2,2);
-//	tree.addNode(6,6);
+//	tree.Insert(4,4);
+//	tree.Insert(5,5);
+//	tree.Insert(3,3);
+//	tree.Insert(2,2);
+//	tree.Insert(6,6);
 //	tree.removeNode(4);
 //	tree.printTree();
 //	tree.treeClear();
@@ -163,13 +163,13 @@ int main(){
 //	6 BF: 0 Height: 0
 //	7 BF: 0 Height: 1
 //	8 BF: 0 Height: 0 */
-//	tree.addNode(4,4);
-//	tree.addNode(3,3);
-//	tree.addNode(7,7);
-//	tree.addNode(2,2);
-//	tree.addNode(5,5);
-//	tree.addNode(8,8);
-//	tree.addNode(6,6);
+//	tree.Insert(4,4);
+//	tree.Insert(3,3);
+//	tree.Insert(7,7);
+//	tree.Insert(2,2);
+//	tree.Insert(5,5);
+//	tree.Insert(8,8);
+//	tree.Insert(6,6);
 //	tree.removeNode(4);
 //	tree.printTree();
 //	tree.treeClear();
@@ -183,14 +183,14 @@ int main(){
 //	7 BF: 1 Height: 3
 //	8 BF: -1 Height: 1
 //	9 BF: 0 Height: 0*/
-//	tree.addNode(7,7);
-//	tree.addNode(3,3);
-//	tree.addNode(8,8);
-//	tree.addNode(2,2);
-//	tree.addNode(4,4);
-//	tree.addNode(9,9);
-//	tree.addNode(5,5);
-//	tree.addNode(1,1);
+//	tree.Insert(7,7);
+//	tree.Insert(3,3);
+//	tree.Insert(8,8);
+//	tree.Insert(2,2);
+//	tree.Insert(4,4);
+//	tree.Insert(9,9);
+//	tree.Insert(5,5);
+//	tree.Insert(1,1);
 //	tree.removeNode(3);
 //	tree.printTree();
 //	tree.treeClear();
@@ -208,18 +208,18 @@ int main(){
 //	12 BF: -1 Height: 2
 //	13 BF: -1 Height: 1
 //	14 BF: 0 Height: 0*/
-//	tree.addNode(9,9);
-//	tree.addNode(3,3);
-//	tree.addNode(12,12);
-//	tree.addNode(2,2);
-//	tree.addNode(7,7);
-//	tree.addNode(10,10);
-//	tree.addNode(13,13);
-//	tree.addNode(1,1);
-//	tree.addNode(5,5);
-//	tree.addNode(8,8);
-//	tree.addNode(14,14);
-//	tree.addNode(6,6);
+//	tree.Insert(9,9);
+//	tree.Insert(3,3);
+//	tree.Insert(12,12);
+//	tree.Insert(2,2);
+//	tree.Insert(7,7);
+//	tree.Insert(10,10);
+//	tree.Insert(13,13);
+//	tree.Insert(1,1);
+//	tree.Insert(5,5);
+//	tree.Insert(8,8);
+//	tree.Insert(14,14);
+//	tree.Insert(6,6);
 //	tree.removeNode(3);
 //	tree.printTree();
 //	tree.treeClear();
@@ -232,13 +232,13 @@ int main(){
 //	4 BF: 0 Height: 2
 //	7 BF: -1 Height: 1
 //	8 BF: 0 Height: 0*/
-//	tree.addNode(7,7);
-//	tree.addNode(2,2);
-//	tree.addNode(8,8);
-//	tree.addNode(1,1);
-//	tree.addNode(4,4);
-//	tree.addNode(9,9);
-//	tree.addNode(3,3);
+//	tree.Insert(7,7);
+//	tree.Insert(2,2);
+//	tree.Insert(8,8);
+//	tree.Insert(1,1);
+//	tree.Insert(4,4);
+//	tree.Insert(9,9);
+//	tree.Insert(3,3);
 //	tree.removeNode(9);
 //	tree.printTree();
 //	tree.treeClear();
@@ -251,13 +251,13 @@ int main(){
 //	4 BF: 0 Height: 0
 //	7 BF: 0 Height: 1
 //	8 BF: 0 Height: 0*/
-//	tree.addNode(7,7);
-//	tree.addNode(3,3);
-//	tree.addNode(8,8);
-//	tree.addNode(2,2);
-//	tree.addNode(4,4);
-//	tree.addNode(9,9);
-//	tree.addNode(1,1);
+//	tree.Insert(7,7);
+//	tree.Insert(3,3);
+//	tree.Insert(8,8);
+//	tree.Insert(2,2);
+//	tree.Insert(4,4);
+//	tree.Insert(9,9);
+//	tree.Insert(1,1);
 //	tree.removeNode(9);
 //	tree.printTree();
 //	tree.treeClear();
@@ -270,13 +270,13 @@ int main(){
 //	8 BF: 0 Height: 2
 //	9 BF: -1 Height: 1
 //	10 BF: 0 Height: 0*/
-//	tree.addNode(3,3);
-//	tree.addNode(2,2);
-//	tree.addNode(8,8);
-//	tree.addNode(7,7);
-//	tree.addNode(1,1);
-//	tree.addNode(9,9);
-//	tree.addNode(10,10);
+//	tree.Insert(3,3);
+//	tree.Insert(2,2);
+//	tree.Insert(8,8);
+//	tree.Insert(7,7);
+//	tree.Insert(1,1);
+//	tree.Insert(9,9);
+//	tree.Insert(10,10);
 //	tree.removeNode(1);
 //	tree.printTree();
 //	tree.treeClear();
@@ -289,13 +289,13 @@ int main(){
 //	10 BF: 0 Height: 0
 //	13 BF: 0 Height: 1
 //	14 BF: 0 Height: 0*/
-//	tree.addNode(3,3);
-//	tree.addNode(2,2);
-//	tree.addNode(13,13);
-//	tree.addNode(7,7);
-//	tree.addNode(1,1);
-//	tree.addNode(14,14);
-//	tree.addNode(10,10);
+//	tree.Insert(3,3);
+//	tree.Insert(2,2);
+//	tree.Insert(13,13);
+//	tree.Insert(7,7);
+//	tree.Insert(1,1);
+//	tree.Insert(14,14);
+//	tree.Insert(10,10);
 //	tree.removeNode(1);
 //	tree.printTree();
 //	tree.treeClear();
@@ -313,18 +313,18 @@ int main(){
 //	19 BF: -1 Height: 2
 //	21 BF: -1 Height: 1
 //	23 BF: 0 Height: 0*/
-//	tree.addNode(9,9);
-//	tree.addNode(3,3);
-//	tree.addNode(15,15);
-//	tree.addNode(1,1);
-//	tree.addNode(7,7);
-//	tree.addNode(13,13);
-//	tree.addNode(19,19);
-//	tree.addNode(5,5);
-//	tree.addNode(11,11);
-//	tree.addNode(17,17);
-//	tree.addNode(21,21);
-//	tree.addNode(23,23);
+//	tree.Insert(9,9);
+//	tree.Insert(3,3);
+//	tree.Insert(15,15);
+//	tree.Insert(1,1);
+//	tree.Insert(7,7);
+//	tree.Insert(13,13);
+//	tree.Insert(19,19);
+//	tree.Insert(5,5);
+//	tree.Insert(11,11);
+//	tree.Insert(17,17);
+//	tree.Insert(21,21);
+//	tree.Insert(23,23);
 //	tree.removeNode(1);
 //	tree.printTree();
 //	tree.treeClear();
@@ -342,18 +342,18 @@ int main(){
 //	19 BF: -1 Height: 2
 //	21 BF: -1 Height: 1
 //	23 BF: 0 Height: 0*/
-//	tree.addNode(9,9);
-//	tree.addNode(3,3);
-//	tree.addNode(15,15);
-//	tree.addNode(1,1);
-//	tree.addNode(7,7);
-//	tree.addNode(13,13);
-//	tree.addNode(19,19);
-//	tree.addNode(8,8);
-//	tree.addNode(11,11);
-//	tree.addNode(17,17);
-//	tree.addNode(21,21);
-//	tree.addNode(23,23);
+//	tree.Insert(9,9);
+//	tree.Insert(3,3);
+//	tree.Insert(15,15);
+//	tree.Insert(1,1);
+//	tree.Insert(7,7);
+//	tree.Insert(13,13);
+//	tree.Insert(19,19);
+//	tree.Insert(8,8);
+//	tree.Insert(11,11);
+//	tree.Insert(17,17);
+//	tree.Insert(21,21);
+//	tree.Insert(23,23);
 //	tree.removeNode(1);
 //	tree.printTree();
 //	tree.treeClear();
@@ -372,18 +372,18 @@ int main(){
 //	18 BF: 0 Height: 1
 //	20 BF: 0 Height: 0
 //	 */
-//	tree.addNode(15,15);
-//	tree.addNode(10,10);
-//	tree.addNode(20,20);
-//	tree.addNode(8,8);
-//	tree.addNode(11,11);
-//	tree.addNode(17,17);
-//	tree.addNode(21,21);
-//	tree.addNode(7,7);
-//	tree.addNode(9,9);
-//	tree.addNode(12,12);
-//	tree.addNode(18,18);
-//	tree.addNode(6,6);
+//	tree.Insert(15,15);
+//	tree.Insert(10,10);
+//	tree.Insert(20,20);
+//	tree.Insert(8,8);
+//	tree.Insert(11,11);
+//	tree.Insert(17,17);
+//	tree.Insert(21,21);
+//	tree.Insert(7,7);
+//	tree.Insert(9,9);
+//	tree.Insert(12,12);
+//	tree.Insert(18,18);
+//	tree.Insert(6,6);
 //	tree.removeNode(21);
 //	tree.printTree();
 //	tree.treeClear();
@@ -401,18 +401,18 @@ int main(){
 //	20 BF: 0 Height: 0
 //	21 BF: 0 Height: 1
 //	22 BF: 0 Height: 0 */
-//	tree.addNode(15,15);
-//	tree.addNode(10,10);
-//	tree.addNode(20,20);
-//	tree.addNode(8,8);
-//	tree.addNode(11,11);
-//	tree.addNode(17,17);
-//	tree.addNode(22,22);
-//	tree.addNode(7,7);
-//	tree.addNode(9,9);
-//	tree.addNode(12,12);
-//	tree.addNode(21,21);
-//	tree.addNode(6,6);
+//	tree.Insert(15,15);
+//	tree.Insert(10,10);
+//	tree.Insert(20,20);
+//	tree.Insert(8,8);
+//	tree.Insert(11,11);
+//	tree.Insert(17,17);
+//	tree.Insert(22,22);
+//	tree.Insert(7,7);
+//	tree.Insert(9,9);
+//	tree.Insert(12,12);
+//	tree.Insert(21,21);
+//	tree.Insert(6,6);
 //	tree.removeNode(17);
 //	tree.printTree();
 //	tree.treeClear();
@@ -424,11 +424,11 @@ int main(){
 //	4 BF: 0 Height: 0
 //	6 BF: 1 Height: 1*/
 //
-//	tree.addNode(5,5);
-//	tree.addNode(3,3);
-//	tree.addNode(6,6);
-//	tree.addNode(2,2);
-//	tree.addNode(4,4);
+//	tree.Insert(5,5);
+//	tree.Insert(3,3);
+//	tree.Insert(6,6);
+//	tree.Insert(2,2);
+//	tree.Insert(4,4);
 //	tree.removeNode(5);
 //	tree.printTree();
 //	tree.treeClear();
@@ -438,10 +438,10 @@ int main(){
 //	 * 2 BF: 0 Height: 0
 //	3 BF: 0 Height: 1
 //	6 BF: 0 Height: 0*/
-//	tree.addNode(5,5);
-//	tree.addNode(3,3);
-//	tree.addNode(6,6);
-//	tree.addNode(2,2);
+//	tree.Insert(5,5);
+//	tree.Insert(3,3);
+//	tree.Insert(6,6);
+//	tree.Insert(2,2);
 //	tree.removeNode(5);
 //	tree.printTree();
 //	tree.treeClear();
@@ -454,7 +454,7 @@ int main(){
 //		 unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 //		 shuffle (vector.begin(), vector.end(), std::default_random_engine(seed));
 //		 for (std::vector<int>::iterator it = vector.begin() ; it != vector.end(); ++it){
-//				tree.addNode(*it,*it);
+//				tree.Insert(*it,*it);
 //
 //		 }
 //		 tree.printTree();

@@ -3,7 +3,7 @@
 
 template<class Value>
 void AVLTree<Value>::Insert(Value const& val) {
-    InsertValueInNode(val, this -> root);
+    this -> root = InsertValueInNode(val, this -> root);
 }
 
 template<class Value>
@@ -14,6 +14,29 @@ void AVLTree<Value>::Remove(const Value& val) {
 template<class Value>
 AVLNode<Value>* AVLTree<Value>::FindValue(const Value& val) {
     RemoveValueInNode(val, this -> root);
+}
+
+template<class Value>
+void AVLTree<Value>::DestroyTree(AVLNode<Value>* root){
+    if(root != nullptr){
+        DestroyTree(root ->right_son);
+        DestroyTree(root ->left_son);
+    }
+    delete root;
+}
+
+template<class Value>
+AVLNode<Value>* AVLTree<Value>::createTreeNode(Value* vals, int start_index,
+                                               int final_index){
+    if(final_index < start_index) return nullptr;
+    AVLNode<Value>* base = new AVLNode<Value>;
+    int middle_index = start_index + (final_index - start_index)/2;
+    base -> val = vals[middle_index];
+    if(start_index != final_index) {
+        base->left_son = createTreeNode(vals, start_index, middle_index - 1);
+        base->left_son = createTreeNode(vals, middle_index + 1, final_index);
+    }
+    return base;
 }
 
 template<class Value>
@@ -35,7 +58,8 @@ AVLNode<Value>* AVLTree<Value>::FindValueInNode(const Value& val, AVLNode<Value>
 template<class Value>
 AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Value>* node) {
     if(node == nullptr){
-        return nullptr;
+        AVLNode<Value>* temp = new AVLNode<Value>(val);
+        return temp;
     }
     else if(node -> val == val){
         return nullptr; // TODO add exception
@@ -121,7 +145,7 @@ void AVLTree<Value>::UpdateHeight(AVLNode<Value>* node) {
         left_height = 0;
     }
 
-    if(node -> left_son != nullptr) {
+    if(node -> right_son != nullptr) {
         right_height = node->right_son->height;
     }else{
         right_height = 0;
