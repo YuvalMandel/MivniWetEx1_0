@@ -436,19 +436,19 @@ int main(){
     tree21.Remove(5);
     std::cout << "tree21\n" << printAVLNode(tree21.root, 0);
 
-//	//delete node cause LR
-//	/*correct output
-//	 * 2 BF: 0 Height: 0
-//	3 BF: 0 Height: 1
-//	6 BF: 0 Height: 0*/
-//	tree.Insert(5,5);
-//	tree.Insert(3,3);
-//	tree.Insert(6,6);
-//	tree.Insert(2,2);
-//	tree.removeNode(5);
-//	tree.printTree();
-//	tree.treeClear();
-//
+	//delete node cause LR
+    AVLTree<int> tree22;
+	/*correct output
+	 * 2 BF: 0 Height: 0
+	3 BF: 0 Height: 1
+	6 BF: 0 Height: 0*/
+    tree22.Insert(5);
+    tree22.Insert(3);
+    tree22.Insert(6);
+    tree22.Insert(2);
+    tree22.Remove(5);
+    std::cout << "tree22\n" << printAVLNode(tree22.root, 0);
+
 //	std::vector<int> vector;
 //	 for (int i=1; i<=100; i++) vector.push_back(i);
 //
