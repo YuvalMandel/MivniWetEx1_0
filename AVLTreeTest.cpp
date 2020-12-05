@@ -66,29 +66,29 @@ int main(){
     tree4.Insert(3);
     tree4.Insert(2);
     std::cout << "tree4\n" << printAVLNode(tree4.root, 0);
-    
-//
-//	//basic LR not root change
-//	/*correct output
-//	1 BF: 0 Height: 0
-//	2 BF: 0 Height: 1
-//	3 BF: 0 Height: 0
-//	4 BF: 1 Height: 2
-//	5 BF: 0 Height: 0
-//	6 BF: 1 Height: 3
-//	7 BF: 0 Height: 0
-//	8 BF: 1 Height: 1 */
-//	tree.Insert(6,6);
-//	tree.Insert(4,4);
-//	tree.Insert(8,8);
-//	tree.Insert(3,3);
-//	tree.Insert(5,5);
-//	tree.Insert(7,7);
-//	tree.Insert(1,1);
-//	tree.Insert(2,2);
-//	tree.printTree();
-//	tree.treeClear();
-//
+
+
+	//basic LR not root change
+    AVLTree<int> tree5;
+	/*correct output
+	1 BF: 0 Height: 0
+	2 BF: 0 Height: 1
+	3 BF: 0 Height: 0
+	4 BF: 1 Height: 2
+	5 BF: 0 Height: 0
+	6 BF: 1 Height: 3
+	7 BF: 0 Height: 0
+	8 BF: 1 Height: 1 */
+    tree5.Insert(6);
+    tree5.Insert(4);
+    tree5.Insert(8);
+    tree5.Insert(3);
+    tree5.Insert(5);
+    tree5.Insert(7);
+    tree5.Insert(1);
+    tree5.Insert(2);
+    std::cout << "tree5\n" << printAVLNode(tree5.root, 0);
+
 //	//basic LL not root change
 //	/*correct output
 //	1 BF: 0 Height: 0

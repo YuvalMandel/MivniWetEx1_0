@@ -69,7 +69,7 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Valu
             node -> left_son = new AVLNode<Value>(val);
         }
         else{
-            this -> InsertValueInNode(val, node -> left_son);
+            node -> left_son = InsertValueInNode(val, node -> left_son);
         }
     }
     else if (val > node -> val){
@@ -77,7 +77,7 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Valu
             node -> right_son = new AVLNode<Value>(val);
         }
         else{
-            this -> InsertValueInNode(val, node -> right_son);
+            node -> right_son = InsertValueInNode(val, node -> right_son);
         }
     }
     UpdateHeight(node);
