@@ -43,6 +43,7 @@ public:
 class Course{
 
 public:
+    int lectures_num;
     int course_id;
     Lecture** lectures;
 
