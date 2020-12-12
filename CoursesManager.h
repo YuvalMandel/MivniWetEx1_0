@@ -23,6 +23,7 @@ class SubTreeCourse{
 
 public:
 
+    SubTreeCourse(int course_id, Lecture* lectures, void* holder_time_tree);
     int course_id;
     AVLTree<Lecture> lectures_tree;
     void* holder_time_tree;
@@ -31,6 +32,7 @@ public:
 
 class TimeTree{
 
+public:
     int time_watched;
     AVLTree<SubTreeCourse> subtree_tree;
     TimeTree* bigger;
@@ -42,7 +44,7 @@ class Course{
 
 public:
     int course_id;
-    Lecture* lectures;
+    Lecture** lectures;
 
 };
 

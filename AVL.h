@@ -31,7 +31,7 @@ public:
 
     AVLNode<Value>* root;
 
-    void Insert(Value const& val);
+    Value* Insert(Value const& val);
 
     void Remove(const Value& val);
     AVLNode<Value>* FindValue(const Value& val);
@@ -42,7 +42,7 @@ private:
     final_index);
     void DestroyTree(AVLNode<Value>* root);
     AVLNode<Value>* FindValueInNode(const Value& val, AVLNode<Value>* node);
-    AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node);
+    AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node, Value* InsertedValPtr);
     AVLNode<Value>* RemoveValueInNode(const Value& val, AVLNode<Value>* node);
     void UpdateHeight(AVLNode<Value>* node);
     AVLNode<Value>* BalanceNode(AVLNode<Value>* node);

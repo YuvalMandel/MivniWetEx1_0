@@ -2,7 +2,7 @@
 #include <algorithm>
 
 template<class Value>
-void AVLTree<Value>::Insert(Value const& val) {
+Value* AVLTree<Value>::Insert(Value const& val) {
     this -> root = InsertValueInNode(val, this -> root);
 }
 
@@ -56,9 +56,12 @@ AVLNode<Value>* AVLTree<Value>::FindValueInNode(const Value& val, AVLNode<Value>
 }
 
 template<class Value>
-AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Value>* node) {
+AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
+                                                  AVLNode<Value>* node,
+                                                  Value* InsertedValPtr) {
     if(node == nullptr){
         AVLNode<Value>* temp = new AVLNode<Value>(val);
+        InsertedValPtr = &(temp -> val);
         return temp;
     }
     else if(node -> val == val){
@@ -69,7 +72,7 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Valu
             node -> left_son = new AVLNode<Value>(val);
         }
         else{
-            node -> left_son = InsertValueInNode(val, node -> left_son);
+            node -> left_son = InsertValueInNode(val, node -> left_son, InsertedValPtr);
         }
     }
     else if (val > node -> val){
@@ -77,7 +80,7 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val, AVLNode<Valu
             node -> right_son = new AVLNode<Value>(val);
         }
         else{
-            node -> right_son = InsertValueInNode(val, node -> right_son);
+            node -> right_son = InsertValueInNode(val, node -> right_son, InsertedValPtr);
         }
     }
     UpdateHeight(node);
