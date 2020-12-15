@@ -4,7 +4,8 @@
 #include "CoursesManager.h"
 
 
-void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture* arr);
+void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture** arr,
+                             SubTreeCourse* stc_ptr);
 int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt );
 int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCourse> *stc_node);
 int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lecture> *lecture_node);
@@ -42,24 +43,26 @@ StatusType CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
     }
 
+    TimeTree* tt;
+
     // If smallest time is not 0, create it.
     if(this -> smallest_time_tree == nullptr){
         // create time tree 0
-        TimeTree* tt = new TimeTree;
+        tt = new TimeTree;
         tt -> time_watched = 0;
-        tt -> subtree_tree = nullptr;
         tt -> bigger = nullptr;
         tt -> smaller = nullptr;
-        this -> smallest_time_tree = &tt;
+        this -> smallest_time_tree = tt;
     } else if(this -> smallest_time_tree -> time_watched > 0){
         // create time tree 0.
-        TimeTree* tt = new TimeTree;
+        tt = new TimeTree;
         tt -> time_watched = 0;
-        tt -> subtree_tree = nullptr;
         tt -> bigger = this -> smallest_time_tree;
-        tt -> bigger -> smaller = &tt; 
+        tt -> bigger -> smaller = tt;
         tt -> smaller = nullptr;
-        this -> smallest_time_tree = &tt;
+        this -> smallest_time_tree = tt;
+    } else {
+        tt = this -> smallest_time_tree;
     }
 
     // Create subtree course from course lectures and insert
@@ -71,7 +74,7 @@ StatusType CoursesManager::AddCourse (int courseID, int numOfClasses) {
     update_inorder_pointers(stc.lectures_tree.root, c.lectures, &stc);
 
     // Add stc to tt.
-    tt->subtree_tree = stc;
+    tt -> subtree_tree.Insert(stc);
 
     this -> course_tree.Insert(c);
 
@@ -88,29 +91,30 @@ StatusType CoursesManager::RemoveCourse(int courseID){
 
 	for(int i=0; i < c.lectures_num; i++){
 
-		SubTreeCourse* stc = c.lectures[i] -> holder_sub_tree_course;
+		SubTreeCourse* stc = (SubTreeCourse*)c.lectures[i] ->
+		        holder_sub_tree_course;
 
-		stc -> remove(*c.lectures[i]);
+		stc ->lectures_tree.Remove(*c.lectures[i]);
 
 		// If stc is empty, remove it from the time tree.
 		if(stc->lectures_tree.root == nullptr){
 
-			TimeTree* tt = stc -> holder_time_tree;
+			TimeTree* tt = (TimeTree*)stc -> holder_time_tree;
 
-			tt -> subtree_tree.remove(*stc);
+			tt -> subtree_tree.Remove(*stc);
 
 			if(tt->subtree_tree.root == nullptr){
 
 				if(tt -> bigger != nullptr){
 					tt -> bigger -> smaller = tt -> smaller;
 				} else{
-					this -> biggest = tt -> smaller;
+					this -> largest_time_tree = tt -> smaller;
 				}
 
 				if(tt -> smaller != nullptr){
 					tt -> smaller -> bigger = tt -> bigger;
 				} else{
-					this -> smallest = tt -> bigger;
+					this -> smallest_time_tree = tt -> bigger;
 				}
 
 				delete tt;
@@ -120,7 +124,7 @@ StatusType CoursesManager::RemoveCourse(int courseID){
 	}
 
 
-	this -> course_tree.remove(c);
+	this -> course_tree.Remove(c);
 
 	return SUCCESS;
 
@@ -135,10 +139,10 @@ StatusType CoursesManager::WatchClass(int courseID, int classID, int time){
 
 	Lecture *lecture_ptr = c.lectures[classID];
 	Lecture lecture =  *lecture_ptr;
-	SubTreeCourse* stc = lecture_ptr -> holder_sub_tree_course;
-	stc -> remove(lecture);
+	SubTreeCourse* stc = (SubTreeCourse*)lecture_ptr -> holder_sub_tree_course;
+	stc -> lectures_tree.Remove(lecture);
 
-	TimeTree* original_tt = stc -> holder_time_tree;
+	TimeTree* original_tt = (TimeTree*)stc -> holder_time_tree;
 
 	TimeTree* current_tt = original_tt;
 
@@ -152,13 +156,15 @@ StatusType CoursesManager::WatchClass(int courseID, int classID, int time){
 		AVLNode<SubTreeCourse>* current_stc_node = current_tt -> subtree_tree.FindValue(*stc);
 		if (current_stc_node){
 			lecture.holder_sub_tree_course = &(current_stc_node -> val);
-			c.lectures[classID] = current_stc_node -> val.insert(lecture);
+			c.lectures[classID] = current_stc_node -> val.lectures_tree
+			        .Insert(lecture);
 		}else{
 			SubTreeCourse new_stc;
 			new_stc.holder_time_tree = current_tt;
 			new_stc.course_id = courseID;
-			c.lectures[classID] = new_stc.lectures_tree.insert(lecture);
-			c.lectures[classID].holder_sub_tree_course = current_tt -> subtree_tree.insert(new_stc);
+			c.lectures[classID] = new_stc.lectures_tree.Insert(lecture);
+			c.lectures[classID] -> holder_sub_tree_course = current_tt ->
+			        subtree_tree.Insert(new_stc);
 		}
 	}else{
 		TimeTree* new_tt = new TimeTree;
@@ -172,29 +178,30 @@ StatusType CoursesManager::WatchClass(int courseID, int classID, int time){
 		SubTreeCourse new_stc;
 		new_stc.holder_time_tree = new_tt;
 		new_stc.course_id = courseID;
-		c.lectures[classID] = new_stc.lectures_tree.insert(lecture);
-		c.lectures[classID].holder_sub_tree_course = new_tt -> subtree_tree.insert(new_stc);
+		c.lectures[classID] = new_stc.lectures_tree.Insert(lecture);
+		c.lectures[classID] -> holder_sub_tree_course = new_tt -> subtree_tree
+		        .Insert(new_stc);
 	}
 	
 	// If stc is empty, remove it from the time tree.
 	if(stc->lectures_tree.root == nullptr){
 
-		TimeTree* tt = stc -> holder_time_tree;
+		TimeTree* tt = (TimeTree*)stc -> holder_time_tree;
 
-		tt -> subtree_tree.remove(*stc);
+		tt -> subtree_tree.Remove(*stc);
 
 		if(tt->subtree_tree.root == nullptr){
 
 			if(tt -> bigger != nullptr){
 				tt -> bigger -> smaller = tt -> smaller;
 			} else{
-				this -> biggest = tt -> smaller;
+				this -> largest_time_tree = tt -> smaller;
 			}
 
 			if(tt -> smaller != nullptr){
 				tt -> smaller -> bigger = tt -> bigger;
 			} else{
-				this -> smallest = tt -> bigger;
+				this -> smallest_time_tree = tt -> bigger;
 			}
 
 			delete tt;
@@ -227,7 +234,9 @@ int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt )
 		return numOfClasses;
 	}
 
-	int num_Of_Classes_left = stc_reversed_inorder(numOfClasses,courses, classes, tt->subtree_tree->root);
+	int num_Of_Classes_left = stc_inorder(numOfClasses,courses, classes,
+                                       tt->subtree_tree.root);
+
 	if(num_Of_Classes_left > 0){
 		return timeTree_search(num_Of_Classes_left,courses, classes,tt -> smaller);
 	}
@@ -237,7 +246,7 @@ int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt )
 }
 
 int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCourse> *stc_node){
-	if(tt == nullptr){
+	if(stc_node == nullptr){
 		return numOfClasses;
 	}
 
@@ -247,46 +256,53 @@ int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCou
 		return 0;
 	}
 	else{
-		num_Of_Classes_left =  lectures_inorder(num_Of_Classes_left,courses[num_Of_Classes_left], 
-								classes[num_Of_Classes_left], stc_nod->val->lectures_tree->root);
+		num_Of_Classes_left =  lectures_inorder(num_Of_Classes_left,
+                                          &courses[num_Of_Classes_left],
+                                          &classes[num_Of_Classes_left],
+                                          stc_node->val.lectures_tree.root);
 	}
-	if(num_Of_Classes_left == 0){
-		return 0;
-	else{
-		return num_Of_Classes_left = stc_inorder(num_Of_Classes_left,courses[num_Of_Classes_left],
-								 classes[num_Of_Classes_left], stc_node->right_son);
+	if(num_Of_Classes_left == 0) {
+        return 0;
+    }else{
+		return num_Of_Classes_left = stc_inorder(num_Of_Classes_left,&courses[num_Of_Classes_left],
+                                                 &classes[num_Of_Classes_left], stc_node->right_son);
 	}
 }
 
 int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lecture> *lecture_node){
-	if(tt == nullptr){
+	if(lecture_node == nullptr){
 		return numOfClasses;
 	}
 	int num_Of_Classes_left = lectures_inorder(numOfClasses,courses, classes, lecture_node->left_son);
 	
-	if(num_Of_Classes_left == 0){
-		return 0;
-	else{
-		classes[num_Of_Classes_left] = lecture_node->val->lecture_id;
-		courses[num_Of_Classes_left] = lecture_node->val->holder_sub_tree_course->course_id;
+	if(num_Of_Classes_left == 0) {
+        return 0;
+    }else{
+		classes[num_Of_Classes_left] = lecture_node->val.lecture_id;
+		SubTreeCourse* temp_stc = (SubTreeCourse*)lecture_node->val
+		        .holder_sub_tree_course;
+		courses[num_Of_Classes_left] = temp_stc -> course_id;
 		num_Of_Classes_left -= 1;
 	}
-	if(num_Of_Classes_left == 0){
-		return 0;
-	else{
-		return num_Of_Classes_left = lectures_inorder(num_Of_Classes_left,courses[num_Of_Classes_left], 
-							classes[num_Of_Classes_left], lecture_node->right_son);
+	if(num_Of_Classes_left == 0) {
+        return 0;
+    }else{
+		return num_Of_Classes_left = lectures_inorder(num_Of_Classes_left,
+                                                &courses[num_Of_Classes_left],
+                                                &classes[num_Of_Classes_left],
+                                                lecture_node->right_son);
 	}
 }
 
-void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture* arr, SubTreeCourse* stc_ptr){
+void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture** arr,
+                             SubTreeCourse* stc_ptr){
 	if(avl_node == nullptr){
 		return;
 	}
-	update_inorder_pointers(avl_node->left_son,arr);
+	update_inorder_pointers(avl_node->left_son,arr ,stc_ptr);
 	
-	arr[avl_node->val->lecture_id] = &avl_node->val;
-	avl_node->val->holder_sub_tree_course = stc_ptr;
+	arr[avl_node->val.lecture_id] = &avl_node->val;
+	avl_node->val.holder_sub_tree_course = stc_ptr;
 
-	update_inorder_pointers(avl_node->right_son,arr);
+	update_inorder_pointers(avl_node->right_son,arr ,stc_ptr);
 }

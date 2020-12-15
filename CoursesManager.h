@@ -23,6 +23,7 @@ class SubTreeCourse{
 
 public:
 
+    SubTreeCourse() = default;
     SubTreeCourse(int course_id, Lecture* lectures, void* holder_time_tree);
     int course_id;
     AVLTree<Lecture> lectures_tree;
