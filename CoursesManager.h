@@ -17,6 +17,12 @@ public:
     int watch_num;
     void* holder_sub_tree_course;
 
+    friend bool operator<(const Lecture& c1, const Lecture& c2);
+    friend bool operator>(const Lecture& c1, const Lecture& c2);
+    friend bool operator==(const Lecture& c1, const Lecture& c2);
+    friend bool operator<=(const Lecture& c1, const Lecture& c2);
+    friend bool operator>=(const Lecture& c1, const Lecture& c2);
+
 };
 
 class SubTreeCourse{
@@ -24,10 +30,19 @@ class SubTreeCourse{
 public:
 
     SubTreeCourse() = default;
-    SubTreeCourse(int course_id, Lecture* lectures, void* holder_time_tree);
+    SubTreeCourse(int course_id, Lecture* lectures, int lectures_num, void*
+    holder_time_tree) :
+    course_id(course_id), lectures_tree(lectures, lectures_num),
+    holder_time_tree(holder_time_tree){}
     int course_id;
     AVLTree<Lecture> lectures_tree;
     void* holder_time_tree;
+
+    friend bool operator<(const SubTreeCourse& c1, const SubTreeCourse& c2);
+    friend bool operator>(const SubTreeCourse& c1, const SubTreeCourse& c2);
+    friend bool operator==(const SubTreeCourse& c1, const SubTreeCourse& c2);
+    friend bool operator<=(const SubTreeCourse& c1, const SubTreeCourse& c2);
+    friend bool operator>=(const SubTreeCourse& c1, const SubTreeCourse& c2);
 
 };
 
@@ -44,9 +59,16 @@ public:
 class Course{
 
 public:
+    ~Course();
     int lectures_num;
     int course_id;
     Lecture** lectures;
+
+    friend bool operator<(const Course& c1, const Course& c2);
+    friend bool operator>(const Course& c1, const Course& c2);
+    friend bool operator==(const Course& c1, const Course& c2);
+    friend bool operator<=(const Course& c1, const Course& c2);
+    friend bool operator>=(const Course& c1, const Course& c2);
 
 };
 
@@ -65,17 +87,18 @@ private:
 
 public:
 
-    void *Init();
+    ~CoursesManager();
 
-    StatusType AddCourse (int courseID, int numOfClasses);
+    void AddCourse (int courseID, int numOfClasses);
 
-    StatusType RemoveCourse(int courseID);
+    void RemoveCourse(int courseID);
 
-    StatusType WatchClass(int courseID, int classID, int time);
+    void WatchClass(int courseID, int classID, int time);
 
-    StatusType TimeViewed(int courseID, int classID, int *timeViewed);
+    void TimeViewed(int courseID, int classID, int *timeViewed);
 
-    StatusType GetMostViewedClasses(int numOfClasses, int *courses, int *classes);
+    void GetMostViewedClasses(int numOfClasses, int *courses, int *classes);
+
 
 };
 

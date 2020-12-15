@@ -10,16 +10,7 @@ int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt )
 int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCourse> *stc_node);
 int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lecture> *lecture_node);
 
-void* CoursesManager::Init(){
-
-    CoursesManager* cm = new CoursesManager;
-
-    return (void*)cm;
-
-}
-
-
-StatusType CoursesManager::AddCourse (int courseID, int numOfClasses) {
+void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
     Course c;
 
@@ -61,12 +52,10 @@ StatusType CoursesManager::AddCourse (int courseID, int numOfClasses) {
         tt -> bigger -> smaller = tt;
         tt -> smaller = nullptr;
         this -> smallest_time_tree = tt;
-    } else {
-        tt = this -> smallest_time_tree;
     }
 
     // Create subtree course from course lectures and insert
-    SubTreeCourse stc(numOfClasses, new_lectures, (void*)this ->
+    SubTreeCourse stc(numOfClasses, new_lectures, numOfClasses, (void*)this ->
     smallest_time_tree);
 
     // Go to each lecture one by one and add holder_sub_tree_course, and
@@ -74,16 +63,14 @@ StatusType CoursesManager::AddCourse (int courseID, int numOfClasses) {
     update_inorder_pointers(stc.lectures_tree.root, c.lectures, &stc);
 
     // Add stc to tt.
-    tt -> subtree_tree.Insert(stc);
+    this -> smallest_time_tree -> subtree_tree.Insert(stc);
 
     this -> course_tree.Insert(c);
-
-    return SUCCESS;
 
 }
 
 
-StatusType CoursesManager::RemoveCourse(int courseID){
+void CoursesManager::RemoveCourse(int courseID){
 	Course temp;
 	temp.course_id = courseID;
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
@@ -126,11 +113,9 @@ StatusType CoursesManager::RemoveCourse(int courseID){
 
 	this -> course_tree.Remove(c);
 
-	return SUCCESS;
-
 }
 
-StatusType CoursesManager::WatchClass(int courseID, int classID, int time){
+void CoursesManager::WatchClass(int courseID, int classID, int time){
 	
 	Course temp;
 	temp.course_id = courseID;
@@ -212,7 +197,7 @@ StatusType CoursesManager::WatchClass(int courseID, int classID, int time){
 }
 
 
-StatusType CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
+void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
 	Course temp;
 	temp.course_id = courseID;
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
@@ -305,4 +290,86 @@ void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture** arr,
 	avl_node->val.holder_sub_tree_course = stc_ptr;
 
 	update_inorder_pointers(avl_node->right_son,arr ,stc_ptr);
+}
+
+CoursesManager::~CoursesManager(){
+
+    // Go to each tree from smallest to largest and call delete each tree,so
+    // each tree destructor will be called.
+    TimeTree* current_tt = this->smallest_time_tree;
+    TimeTree* next_tt;
+    while(current_tt != nullptr){
+        next_tt = current_tt -> bigger;
+        delete current_tt;
+        current_tt = next_tt;
+    }
+
+    // The course tree destructor will be called in the end of the time trees.
+
+}
+
+Course::~Course(){
+
+    delete [] lectures;
+
+}
+
+bool operator<(const Course& c1, const Course& c2){
+    return c1.course_id < c2.course_id;
+}
+
+bool operator>(const Course& c1, const Course& c2){
+    return c2 < c1;
+}
+
+bool operator==(const Course& c1, const Course& c2){
+    return !(c2 < c1) && !(c1 < c2);
+}
+
+bool operator<=(const Course& c1, const Course& c2){
+    return !(c2 < c1);
+}
+
+bool operator>=(const Course& c1, const Course& c2){
+    return !(c1 < c2);
+}
+
+bool operator<(const SubTreeCourse& c1, const SubTreeCourse& c2){
+    return c1.course_id < c2.course_id;
+}
+
+bool operator>(const SubTreeCourse& c1, const SubTreeCourse& c2){
+    return c2 < c1;
+}
+
+bool operator==(const SubTreeCourse& c1, const SubTreeCourse& c2){
+    return !(c2 < c1) && !(c1 < c2);
+}
+
+bool operator<=(const SubTreeCourse& c1, const SubTreeCourse& c2){
+    return !(c2 < c1);
+}
+
+bool operator>=(const SubTreeCourse& c1, const SubTreeCourse& c2){
+    return !(c1 < c2);
+}
+
+bool operator<(const Lecture& c1, const Lecture& c2){
+    return c1.lecture_id < c2.lecture_id;
+}
+
+bool operator>(const Lecture& c1, const Lecture& c2){
+    return c2 < c1;
+}
+
+bool operator==(const Lecture& c1, const Lecture& c2){
+    return !(c2 < c1) && !(c1 < c2);
+}
+
+bool operator<=(const Lecture& c1, const Lecture& c2){
+    return !(c2 < c1);
+}
+
+bool operator>=(const Lecture& c1, const Lecture& c2){
+    return !(c1 < c2);
 }

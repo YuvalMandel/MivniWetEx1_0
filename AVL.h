@@ -27,7 +27,7 @@ public:
 
     AVLTree() : root(nullptr){}
     AVLTree(Value* vals, int length) :root(createTreeNode(vals, 0, length-1)){}
-    ~AVLTree() { DestroyTree(root);}
+    ~AVLTree() {DestroyTree(root);}
 
     AVLNode<Value>* root;
 
