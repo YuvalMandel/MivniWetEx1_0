@@ -59,6 +59,7 @@ public:
 class Course{
 
 public:
+
     ~Course();
     int lectures_num;
     int course_id;

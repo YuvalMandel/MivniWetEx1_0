@@ -79,6 +79,8 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     SubTreeCourse stc(numOfClasses, new_lectures, numOfClasses, (void*)this ->
     smallest_time_tree);
 
+    c.lectures = new Lecture*[c.lectures_num];
+
     // Go to each lecture one by one and add holder_sub_tree_course, and
     // put pointer in lectures field in course array.
     update_inorder_pointers(stc.lectures_tree.root, c.lectures, &stc);
