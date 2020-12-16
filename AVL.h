@@ -105,7 +105,7 @@ AVLNode<Value>* AVLTree<Value>::createTreeNode(Value* vals, int start_index,
 //    base -> val = vals[middle_index];
     if(start_index != final_index) {
         base->left_son = createTreeNode(vals, start_index, middle_index - 1);
-        base->left_son = createTreeNode(vals, middle_index + 1, final_index);
+        base->right_son = createTreeNode(vals, middle_index + 1, final_index);
     }
     return base;
 }
