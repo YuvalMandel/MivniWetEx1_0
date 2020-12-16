@@ -16,6 +16,10 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
     c.course_id = courseID;
 
+    if(this -> course_tree.FindValue(c) != nullptr){
+        throw std::invalid_argument("FAILURE");
+    }
+
     c.lectures_num = numOfClasses;
 
     Lecture new_lectures[numOfClasses];
@@ -39,14 +43,31 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     // If smallest time is not 0, create it.
     if(this -> smallest_time_tree == nullptr){
         // create time tree 0
-        tt = new TimeTree;
+
+
+        try {
+            tt = new TimeTree;
+        }
+        catch(std::bad_alloc&)
+        {
+            throw std::invalid_argument("ALLOCATION_ERROR");
+        }
+
         tt -> time_watched = 0;
         tt -> bigger = nullptr;
         tt -> smaller = nullptr;
         this -> smallest_time_tree = tt;
     } else if(this -> smallest_time_tree -> time_watched > 0){
         // create time tree 0.
-        tt = new TimeTree;
+
+        try {
+            tt = new TimeTree;
+        }
+        catch(std::bad_alloc&)
+        {
+            throw std::invalid_argument("ALLOCATION_ERROR");
+        }
+
         tt -> time_watched = 0;
         tt -> bigger = this -> smallest_time_tree;
         tt -> bigger -> smaller = tt;
@@ -71,10 +92,16 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
 
 void CoursesManager::RemoveCourse(int courseID){
+
 	Course temp;
 	temp.course_id = courseID;
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
-	Course c = course_node->val;
+
+    if(course_node == nullptr){
+        throw std::invalid_argument("FAILURE");
+    }
+
+	Course c = course_node -> val;
 
 	for(int i=0; i < c.lectures_num; i++){
 
@@ -120,6 +147,15 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 	Course temp;
 	temp.course_id = courseID;
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
+
+    if(course_node == nullptr){
+        throw std::invalid_argument("FAILURE");
+    }
+
+    if(course_node ->val.lectures_num < courseID + 1){
+        throw std::invalid_argument("INVALID_INPUT");
+    }
+
 	Course c = course_node->val;
 
 	Lecture *lecture_ptr = c.lectures[classID];
@@ -152,7 +188,17 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 			        subtree_tree.Insert(new_stc);
 		}
 	}else{
-		TimeTree* new_tt = new TimeTree;
+
+        TimeTree* new_tt;
+
+        try {
+            new_tt = new TimeTree;
+        }
+        catch(std::bad_alloc&)
+        {
+            throw std::invalid_argument("ALLOCATION_ERROR");
+        }
+
 		new_tt -> time_watched = lecture.watch_num;
 		new_tt -> smaller = current_tt;
 		new_tt -> bigger = current_tt -> bigger;
@@ -201,6 +247,15 @@ void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
 	Course temp;
 	temp.course_id = courseID;
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
+
+    if(course_node == nullptr){
+        throw std::invalid_argument("FAILURE");
+    }
+
+    if(course_node ->val.lectures_num < courseID + 1){
+        throw std::invalid_argument("INVALID_INPUT");
+    }
+
 	Course c = course_node->val;
 
 	Lecture *lecture_ptr = c.lectures[classID];
@@ -208,10 +263,12 @@ void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
 }
 
 
-StatusType CoursesManager::GetMostViewedClasses(int numOfClasses, int *courses, int *classes){
-	timeTree_search(numOfClasses, courses, classes, this -> largest_time_tree);
+void CoursesManager::GetMostViewedClasses(int numOfClasses, int *courses, int
+*classes){
+	int num_Of_Classes_left = timeTree_search(numOfClasses, courses, classes,
+                                         this -> largest_time_tree);
 
-	return SUCCESS;
+	if(num_Of_Classes_left > 0){throw std::invalid_argument("FAILURE");}
 }
 
 int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt ){
