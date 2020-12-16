@@ -36,16 +36,17 @@ AVLNode<Value>* AVLTree<Value>::createTreeNode(Value* vals, int start_index,
 
     AVLNode<Value>* base;
 
+    int middle_index = start_index + (final_index - start_index)/2;
+
     try {
-        base = new AVLNode<Value>;
+        base = new AVLNode<Value>(vals[middle_index]);
     }
     catch(std::bad_alloc&)
     {
         throw std::invalid_argument("ALLOCATION_ERROR");
     }
 
-    int middle_index = start_index + (final_index - start_index)/2;
-    base -> val = vals[middle_index];
+//    base -> val = vals[middle_index];
     if(start_index != final_index) {
         base->left_son = createTreeNode(vals, start_index, middle_index - 1);
         base->left_son = createTreeNode(vals, middle_index + 1, final_index);
@@ -62,11 +63,14 @@ AVLNode<Value>* AVLTree<Value>::FindValueInNode(const Value& val, AVLNode<Value>
         return node;
     }
     else if (val < node -> val){
-        return FindValueInNode(node -> left_son);
+        return FindValueInNode(val, node -> left_son);
     }
     else if (val > node -> val){
-        return FindValueInNode(node -> right_son);
+        return FindValueInNode(val, node -> right_son);
     }
+
+    return nullptr;
+
 }
 
 template<class Value>
