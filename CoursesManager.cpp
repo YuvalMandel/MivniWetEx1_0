@@ -79,7 +79,12 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     SubTreeCourse stc(numOfClasses, new_lectures, numOfClasses, (void*)this ->
     smallest_time_tree);
 
-    c.lectures = new Lecture*[c.lectures_num];
+    try {
+        c.lectures = new Lecture*[c.lectures_num];
+    }
+    catch(std::bad_alloc&) {
+        throw std::invalid_argument("ALLOCATION_ERROR");
+    }
 
     // Go to each lecture one by one and add holder_sub_tree_course, and
     // put pointer in lectures field in course array.
@@ -345,7 +350,7 @@ void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture** arr,
 	}
 	update_inorder_pointers(avl_node->left_son,arr ,stc_ptr);
 	
-	arr[avl_node->val.lecture_id] = &avl_node->val;
+	arr[avl_node->val.lecture_id - 1] = &(avl_node->val);
 	avl_node->val.holder_sub_tree_course = stc_ptr;
 
 	update_inorder_pointers(avl_node->right_son,arr ,stc_ptr);
