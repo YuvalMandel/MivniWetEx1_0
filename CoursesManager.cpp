@@ -112,8 +112,8 @@ void CoursesManager::RemoveCourse(int courseID){
 
 	for(int i=0; i < c.lectures_num; i++){
 
-		SubTreeCourse* stc = (SubTreeCourse*)c.lectures[i] ->
-		        holder_sub_tree_course;
+		SubTreeCourse* stc = (SubTreeCourse*)(c.lectures[i] ->
+		        holder_sub_tree_course);
 
 		stc ->lectures_tree.Remove(*c.lectures[i]);
 
@@ -374,7 +374,9 @@ CoursesManager::~CoursesManager(){
 
 Course::~Course(){
 
-    delete [] lectures;
+    if(lectures != nullptr) {
+        delete[] lectures;
+    }
 
 }
 

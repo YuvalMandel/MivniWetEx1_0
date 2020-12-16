@@ -42,7 +42,8 @@ private:
     final_index);
     void DestroyTree(AVLNode<Value>* root);
     AVLNode<Value>* FindValueInNode(const Value& val, AVLNode<Value>* node);
-    AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node, Value* InsertedValPtr);
+    AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node,
+                                      Value** InsertedValPtr);
     AVLNode<Value>* RemoveValueInNode(const Value& val, AVLNode<Value>* node);
     void UpdateHeight(AVLNode<Value>* node);
     AVLNode<Value>* BalanceNode(AVLNode<Value>* node);
@@ -59,10 +60,10 @@ private:
 #include <iostream>
 
 template<class Value>
-Value* AVLTree<Value>::Insert(Value const& val) {
+Value* AVLTree<Value>::Insert(const Value& val) {
 
     Value* temp = nullptr;
-    this -> root = InsertValueInNode(val, this -> root, temp);
+    this -> root = InsertValueInNode(val, this -> root, &temp);
     return temp;
 }
 
@@ -132,7 +133,7 @@ AVLNode<Value>* AVLTree<Value>::FindValueInNode(const Value& val, AVLNode<Value>
 template<class Value>
 AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
                                                   AVLNode<Value>* node,
-                                                  Value* InsertedValPtr) {
+                                                  Value** InsertedValPtr) {
     if(node == nullptr){
 
         AVLNode<Value>* temp;
@@ -145,7 +146,7 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
             throw std::invalid_argument("ALLOCATION_ERROR");
         }
 
-        InsertedValPtr = &(temp -> val);
+        *InsertedValPtr = &(temp -> val);
         return temp;
     }
     else if(node -> val == val){
