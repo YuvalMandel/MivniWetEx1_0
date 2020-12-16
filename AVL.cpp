@@ -4,8 +4,10 @@
 
 template<class Value>
 Value* AVLTree<Value>::Insert(Value const& val) {
-    
-    this -> root = InsertValueInNode(val, this -> root);
+
+    Value* temp;
+    this -> root = InsertValueInNode(val, this -> root, temp);
+    return temp;
 }
 
 template<class Value>
@@ -91,7 +93,15 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
     }
     else if (val < node -> val){
         if(node -> left_son == nullptr){
-            node -> left_son = new AVLNode<Value>(val);
+
+            try {
+                node -> left_son = new AVLNode<Value>(val);
+            }
+            catch(std::bad_alloc&)
+            {
+                throw std::invalid_argument("ALLOCATION_ERROR");
+            }
+
         }
         else{
             node -> left_son = InsertValueInNode(val, node -> left_son, InsertedValPtr);
@@ -99,7 +109,15 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
     }
     else if (val > node -> val){
         if(node -> right_son == nullptr){
-            node -> right_son = new AVLNode<Value>(val);
+
+            try {
+                node -> right_son = new AVLNode<Value>(val);
+            }
+            catch(std::bad_alloc&)
+            {
+                throw std::invalid_argument("ALLOCATION_ERROR");
+            }
+
         }
         else{
             node -> right_son = InsertValueInNode(val, node -> right_son, InsertedValPtr);
