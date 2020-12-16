@@ -1,8 +1,10 @@
 #include "AVL.h"
 #include <algorithm>
+#include <iostream>
 
 template<class Value>
 Value* AVLTree<Value>::Insert(Value const& val) {
+    
     this -> root = InsertValueInNode(val, this -> root);
 }
 
@@ -29,7 +31,17 @@ template<class Value>
 AVLNode<Value>* AVLTree<Value>::createTreeNode(Value* vals, int start_index,
                                                int final_index){
     if(final_index < start_index) return nullptr;
-    AVLNode<Value>* base = new AVLNode<Value>;
+
+    AVLNode<Value>* base;
+
+    try {
+        base = new AVLNode<Value>;
+    }
+    catch(std::bad_alloc&)
+    {
+        throw std::invalid_argument("ALLOCATION_ERROR");
+    }
+
     int middle_index = start_index + (final_index - start_index)/2;
     base -> val = vals[middle_index];
     if(start_index != final_index) {
@@ -60,7 +72,17 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
                                                   AVLNode<Value>* node,
                                                   Value* InsertedValPtr) {
     if(node == nullptr){
-        AVLNode<Value>* temp = new AVLNode<Value>(val);
+
+        AVLNode<Value>* temp;
+
+        try {
+            temp = new AVLNode<Value>(val);
+        }
+        catch(std::bad_alloc&)
+        {
+            throw std::invalid_argument("ALLOCATION_ERROR");
+        }
+
         InsertedValPtr = &(temp -> val);
         return temp;
     }

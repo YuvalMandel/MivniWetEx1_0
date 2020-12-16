@@ -1,6 +1,5 @@
 #include"library.h"
 #include"CoursesManager.h"
-#include "string"
 
 void *Init() {
     CoursesManager *DS = new CoursesManager();
