@@ -30,7 +30,7 @@ std::string printAVLNode(AVLNode<Value>* avl_node,
     return "NULL\n";
 }
 
-int main(){
+int main1(){
 
 	//Specific Cases
 
