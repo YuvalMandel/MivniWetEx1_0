@@ -61,7 +61,7 @@ private:
 template<class Value>
 Value* AVLTree<Value>::Insert(Value const& val) {
 
-    Value* temp;
+    Value* temp = nullptr;
     this -> root = InsertValueInNode(val, this -> root, temp);
     return temp;
 }
