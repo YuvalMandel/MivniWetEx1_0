@@ -11,9 +11,9 @@ StatusType AddCourse(void *DS, int courseID, int numOfClasses) {
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> AddCourse(courseID, numOfClasses);
     }catch(std::exception& e) {
-        if(e.what() == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
-        if(e.what() == "INVALID_INPUT") return INVALID_INPUT;
-        if(e.what() == "FAILURE") return FAILURE;
+        if(std::string(e.what()) == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
+        if(std::string(e.what()) == "INVALID_INPUT") return INVALID_INPUT;
+        if(std::string(e.what()) == "FAILURE") return FAILURE;
     }
     return SUCCESS;
 }
@@ -24,9 +24,9 @@ StatusType RemoveCourse(void *DS, int courseID) {
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> RemoveCourse(courseID);
     }catch(std::exception& e) {
-        if(e.what() == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
-        if(e.what() == "INVALID_INPUT") return INVALID_INPUT;
-        if(e.what() == "FAILURE") return FAILURE;
+        if(std::string(e.what()) == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
+        if(std::string(e.what()) == "INVALID_INPUT") return INVALID_INPUT;
+        if(std::string(e.what()) == "FAILURE") return FAILURE;
     }
     return SUCCESS;
 }
@@ -38,9 +38,9 @@ StatusType WatchClass(void *DS, int courseID, int classID, int time){
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> WatchClass(courseID, classID, time);
     }catch(std::exception& e) {
-        if(e.what() == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
-        if(e.what() == "INVALID_INPUT") return INVALID_INPUT;
-        if(e.what() == "FAILURE") return FAILURE;
+        if(std::string(e.what()) == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
+        if(std::string(e.what()) == "INVALID_INPUT") return INVALID_INPUT;
+        if(std::string(e.what()) == "FAILURE") return FAILURE;
     }
     return SUCCESS;
 }
@@ -52,9 +52,9 @@ StatusType TimeViewed(void *DS, int courseID, int classID, int *timeViewed){
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> TimeViewed(courseID, classID, timeViewed);
     }catch(std::exception& e) {
-        if(e.what() == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
-        if(e.what() == "INVALID_INPUT") return INVALID_INPUT;
-        if(e.what() == "FAILURE") return FAILURE;
+        if(std::string(e.what()) == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
+        if(std::string(e.what()) == "INVALID_INPUT") return INVALID_INPUT;
+        if(std::string(e.what()) == "FAILURE") return FAILURE;
     }
     return SUCCESS;
 }
@@ -68,9 +68,9 @@ StatusType GetMostViewedClasses(void *DS, int numOfClasses, int *courses, int
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> GetMostViewedClasses(numOfClasses, courses, classes);
     }catch(std::exception& e) {
-        if(e.what() == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
-        if(e.what() == "INVALID_INPUT") return INVALID_INPUT;
-        if(e.what() == "FAILURE") return FAILURE;
+        if(std::string(e.what()) == "ALLOCATION_ERROR") return ALLOCATION_ERROR;
+        if(std::string(e.what()) == "INVALID_INPUT") return INVALID_INPUT;
+        if(std::string(e.what()) == "FAILURE") return FAILURE;
     }
     return SUCCESS;
 }
