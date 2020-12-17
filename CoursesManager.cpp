@@ -21,7 +21,7 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     Lecture new_lectures[numOfClasses];
 
     // Go one by one and create lectures by id.
-    for (int i = 1; i < numOfClasses + 1; ++i) {
+    for (int i = 0; i < numOfClasses; ++i) {
 
         Lecture l;
 
@@ -30,7 +30,7 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
         l.holder_sub_tree_course = nullptr;
 
         // Give pointer to course lectures in the right place.
-        new_lectures[i - 1] = l;
+        new_lectures[i] = l;
 
     }
 
@@ -166,7 +166,7 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
         throw std::invalid_argument("INVALID_INPUT");
     }
 
-	Lecture* lecture_ptr = (course_node -> val).lectures[classID - 1];
+	Lecture* lecture_ptr = (course_node -> val).lectures[classID];
 	Lecture lecture =  *lecture_ptr;
 	SubTreeCourse* stc_ptr = (SubTreeCourse*)lecture_ptr -> holder_sub_tree_course;
 	stc_ptr -> lectures_tree.Remove(lecture); //TODO
@@ -357,7 +357,7 @@ void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture** arr,
 	}
 	update_inorder_pointers(avl_node->left_son,arr ,stc_ptr);
 	
-	arr[avl_node->val.lecture_id - 1] = &(avl_node->val);
+	arr[avl_node->val.lecture_id] = &(avl_node->val);
 	avl_node->val.holder_sub_tree_course = stc_ptr;
 
 	update_inorder_pointers(avl_node->right_son,arr ,stc_ptr);
