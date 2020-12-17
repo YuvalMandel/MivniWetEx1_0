@@ -218,6 +218,8 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
         current_tt_ptr -> bigger = new_tt_ptr;
 		if(new_tt_ptr -> bigger != nullptr){
             new_tt_ptr -> bigger -> smaller = new_tt_ptr;
+		}else{
+		    this -> largest_time_tree = new_tt_ptr;
 		}
 		SubTreeCourse new_stc;
 		new_stc.holder_time_tree = new_tt_ptr;
@@ -266,7 +268,7 @@ void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
         throw std::invalid_argument("FAILURE");
     }
 
-    if(course_node ->val.lectures_num < courseID + 1){
+    if(course_node ->val.lectures_num < classID + 1){
         throw std::invalid_argument("INVALID_INPUT");
     }
 
