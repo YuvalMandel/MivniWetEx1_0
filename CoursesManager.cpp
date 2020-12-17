@@ -312,10 +312,11 @@ int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCou
 		return 0;
 	}
 	else{
-		num_Of_Classes_left =  lectures_inorder(num_Of_Classes_left,
-                                          &courses[num_Of_Classes_left],
-                                          &classes[num_Of_Classes_left],
-                                          stc_node->val.lectures_tree.root);
+		num_Of_Classes_left =
+		        lectures_inorder(num_Of_Classes_left,
+                &courses[numOfClasses - num_Of_Classes_left],
+                &classes[numOfClasses - num_Of_Classes_left],
+                stc_node->val.lectures_tree.root);
 	}
 	if(num_Of_Classes_left == 0) {
         return 0;
@@ -334,18 +335,21 @@ int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lectu
 	if(num_Of_Classes_left == 0) {
         return 0;
     }else{
-		classes[num_Of_Classes_left] = lecture_node->val.lecture_id;
+		classes[numOfClasses - num_Of_Classes_left] = lecture_node->val
+		        .lecture_id;
 		SubTreeCourse* temp_stc_ptr = (SubTreeCourse*)lecture_node->val
 		        .holder_sub_tree_course;
-		courses[num_Of_Classes_left] = temp_stc_ptr -> course_id;
+		courses[numOfClasses - num_Of_Classes_left] = temp_stc_ptr -> course_id;
 		num_Of_Classes_left -= 1;
 	}
 	if(num_Of_Classes_left == 0) {
         return 0;
     }else{
 		return num_Of_Classes_left = lectures_inorder(num_Of_Classes_left,
-                                                &courses[num_Of_Classes_left],
-                                                &classes[num_Of_Classes_left],
+                                                &courses[numOfClasses -
+                                                num_Of_Classes_left],
+                                                &classes[numOfClasses -
+                                                num_Of_Classes_left],
                                                 lecture_node->right_son);
 	}
 }
