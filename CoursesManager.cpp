@@ -447,6 +447,25 @@ SubTreeCourse& SubTreeCourse::operator=(const SubTreeCourse& stc){
     return *this;
 }
 
+
+
+Lecture::Lecture(){
+    this->lecture_id=0;
+    this->watch_num=0;
+    this->holder_sub_tree_course = nullptr;
+}
+Lecture::Lecture(const Lecture& l){
+    this->lecture_id=l.lecture_id;
+    this->watch_num=l.watch_num;
+    this->holder_sub_tree_course=l.holder_sub_tree_course;
+}
+Lecture& Lecture::operator=(const Lecture& l){
+    this->lecture_id=l.lecture_id;
+    this->watch_num=l.watch_num;
+    this->holder_sub_tree_course=l.holder_sub_tree_course;
+    return *this;
+}
+
 bool operator<(const Course& c1, const Course& c2){
     return c1.course_id < c2.course_id;
 }

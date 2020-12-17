@@ -17,6 +17,11 @@ public:
     int watch_num;
     void* holder_sub_tree_course;
 
+    Lecture();
+    ~Lecture() = default;
+    Lecture(const Lecture& l);
+    Lecture& operator=(const Lecture& l);
+
     friend bool operator<(const Lecture& c1, const Lecture& c2);
     friend bool operator>(const Lecture& c1, const Lecture& c2);
     friend bool operator==(const Lecture& c1, const Lecture& c2);
