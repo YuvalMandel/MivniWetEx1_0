@@ -294,7 +294,10 @@ int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt_p
                                           tt_ptr->subtree_tree.root);
 
 	if(num_Of_Classes_left > 0){
-		return timeTree_search(num_Of_Classes_left, courses, classes, tt_ptr -> smaller);
+		return timeTree_search(num_Of_Classes_left,
+                         &(courses[numOfClasses - num_Of_Classes_left]),
+                         &(classes[numOfClasses - num_Of_Classes_left]),
+                         tt_ptr -> smaller);
 	}
 	else{
 		return 0;
