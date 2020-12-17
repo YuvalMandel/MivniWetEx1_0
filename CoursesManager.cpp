@@ -75,12 +75,12 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     SubTreeCourse stc(courseID, new_lectures, numOfClasses, (void*)this ->
     smallest_time_tree);
 
-    try {
-        c.lectures = new Lecture*[c.lectures_num];
-    }
-    catch(std::bad_alloc&) {
-        throw std::invalid_argument("ALLOCATION_ERROR");
-    }
+//    try {
+//        c.lectures = new Lecture*[c.lectures_num];
+//    }
+//    catch(std::bad_alloc&) {
+//        throw std::invalid_argument("ALLOCATION_ERROR");
+//    }
 
     // Go to each lecture one by one and add holder_sub_tree_course, and
     // put pointer in lectures field in course array.
@@ -388,8 +388,8 @@ CoursesManager::~CoursesManager(){
 
 Course::~Course(){
 
-    if(lectures != nullptr) {
-        delete[] lectures;
+    if(this -> lectures != nullptr) {
+        delete[] this -> lectures;
     }
 
 }
@@ -399,7 +399,7 @@ Course::Course(int course_id, int lectures_num){
     this->course_id = course_id;
     this->lectures_num=lectures_num;
     try {
-        this->lectures=new Lecture*[lectures_num];
+        this->lectures = new Lecture*[lectures_num];
     }
     catch(std::bad_alloc&) {
         throw std::invalid_argument("ALLOCATION_ERROR");
