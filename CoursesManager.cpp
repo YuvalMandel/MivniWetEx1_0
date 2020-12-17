@@ -88,6 +88,8 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     // Add stc to tt.
     this -> smallest_time_tree -> subtree_tree.Insert(stc);
 
+    stc.lectures_tree.root = nullptr;
+
     this -> course_tree.Insert(c);
 
 }
