@@ -72,7 +72,7 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     }
 
     // Create subtree course from course lectures and insert
-    SubTreeCourse stc(numOfClasses, new_lectures, numOfClasses, (void*)this ->
+    SubTreeCourse stc(courseID, new_lectures, numOfClasses, (void*)this ->
     smallest_time_tree);
 
     try {
@@ -422,6 +422,18 @@ Course& Course::operator=(const Course& c){
     for (int i = 0; i < c.lectures_num; ++i) {
         this->lectures[i] = c.lectures[i];
     }
+    return *this;
+}
+
+SubTreeCourse::SubTreeCourse(const SubTreeCourse& stc){
+    this->course_id=stc.course_id;
+    this->holder_time_tree=stc.holder_time_tree;
+    this->lectures_tree=stc.lectures_tree;
+}
+SubTreeCourse& SubTreeCourse::operator=(const SubTreeCourse& stc){
+    this->course_id=stc.course_id;
+    this->holder_time_tree=stc.holder_time_tree;
+    this->lectures_tree=stc.lectures_tree;
     return *this;
 }
 

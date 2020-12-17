@@ -28,8 +28,8 @@ public:
     AVLTree() : root(nullptr){}
     AVLTree(Value* vals, int length) :root(createTreeNode(vals, 0, length-1)){}
     ~AVLTree() {DestroyTree(root);}
-    AVLTree(const AVLTree<Value>& avl_tree);
-    AVLTree<Value>& operator=(const AVLTree<Value>& avl_tree);
+//    AVLTree(const AVLTree<Value>& avl_tree);
+//    AVLTree<Value>& operator=(const AVLTree<Value>& avl_tree);
 
     AVLNode<Value>* root;
 
@@ -61,15 +61,15 @@ private:
 #include <algorithm>
 #include <iostream>
 
-template<class Value>
-AVLTree<Value>::AVLTree(const AVLTree<Value>& avl_tree){
-
-}
-
-template<class Value>
-AVLTree<Value>& AVLTree<Value>::operator=(const AVLTree<Value>& c){
-
-}
+//template<class Value>
+//AVLTree<Value>::AVLTree(const AVLTree<Value>& avl_tree){
+//    this->root=avl_tree.root;
+//}
+//
+//template<class Value>
+//AVLTree<Value>& AVLTree<Value>::operator=(const AVLTree<Value>& avl_tree){
+//    this->root=avl_tree.root;
+//}
 
 template<class Value>
 Value* AVLTree<Value>::Insert(const Value& val) {

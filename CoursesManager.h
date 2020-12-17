@@ -34,6 +34,9 @@ public:
     holder_time_tree) :
     course_id(course_id), lectures_tree(lectures, lectures_num),
     holder_time_tree(holder_time_tree){}
+    ~SubTreeCourse() = default;
+    SubTreeCourse(const SubTreeCourse& stc);
+    SubTreeCourse& operator=(const SubTreeCourse& stc);
     int course_id;
     AVLTree<Lecture> lectures_tree; // TODO make sure delete properly.
     void* holder_time_tree;
