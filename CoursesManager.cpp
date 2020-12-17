@@ -12,15 +12,11 @@ int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lectu
 
 void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
-    Course c;
-
-    c.course_id = courseID;
+    Course c(courseID, numOfClasses);
 
     if(this -> course_tree.FindValue(c) != nullptr){
         throw std::invalid_argument("FAILURE");
     }
-
-    c.lectures_num = numOfClasses;
 
     Lecture new_lectures[numOfClasses];
 
@@ -42,9 +38,8 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
     // If smallest time is not 0, create it.
     if(this -> smallest_time_tree == nullptr){
+
         // create time tree 0
-
-
         try {
             tt = new TimeTree;
         }
@@ -100,8 +95,8 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
 void CoursesManager::RemoveCourse(int courseID){
 
-	Course temp;
-	temp.course_id = courseID;
+	Course temp(courseID, 1);
+
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
 
     if(course_node == nullptr){
@@ -151,8 +146,8 @@ void CoursesManager::RemoveCourse(int courseID){
 
 void CoursesManager::WatchClass(int courseID, int classID, int time){
 	
-	Course temp;
-	temp.course_id = courseID;
+	Course temp(courseID, 1);
+
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
 
     if(course_node == nullptr){
@@ -163,12 +158,10 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
         throw std::invalid_argument("INVALID_INPUT");
     }
 
-	Course c = course_node->val;
-
-	Lecture *lecture_ptr = c.lectures[classID];
+	Lecture *lecture_ptr = (course_node -> val).lectures[classID];
 	Lecture lecture =  *lecture_ptr;
 	SubTreeCourse* stc = (SubTreeCourse*)lecture_ptr -> holder_sub_tree_course;
-	stc -> lectures_tree.Remove(lecture);
+	stc -> lectures_tree.Remove(lecture); //TODO
 
 	TimeTree* original_tt = (TimeTree*)stc -> holder_time_tree;
 
@@ -184,14 +177,14 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 		AVLNode<SubTreeCourse>* current_stc_node = current_tt -> subtree_tree.FindValue(*stc);
 		if (current_stc_node){
 			lecture.holder_sub_tree_course = &(current_stc_node -> val);
-			c.lectures[classID] = current_stc_node -> val.lectures_tree
-			        .Insert(lecture);
+            (course_node -> val).lectures[classID] =
+                    current_stc_node -> val.lectures_tree.Insert(lecture);
 		}else{
 			SubTreeCourse new_stc;
 			new_stc.holder_time_tree = current_tt;
 			new_stc.course_id = courseID;
-			c.lectures[classID] = new_stc.lectures_tree.Insert(lecture);
-			c.lectures[classID] -> holder_sub_tree_course = current_tt ->
+            (course_node -> val).lectures[classID] = new_stc.lectures_tree.Insert(lecture);
+            (course_node -> val).lectures[classID] -> holder_sub_tree_course = current_tt ->
 			        subtree_tree.Insert(new_stc);
 		}
 	}else{
@@ -216,8 +209,8 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 		SubTreeCourse new_stc;
 		new_stc.holder_time_tree = new_tt;
 		new_stc.course_id = courseID;
-		c.lectures[classID] = new_stc.lectures_tree.Insert(lecture);
-		c.lectures[classID] -> holder_sub_tree_course = new_tt -> subtree_tree
+        (course_node -> val).lectures[classID] = new_stc.lectures_tree.Insert(lecture);
+        (course_node -> val).lectures[classID] -> holder_sub_tree_course = new_tt -> subtree_tree
 		        .Insert(new_stc);
 	}
 	
@@ -251,8 +244,8 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 
 
 void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
-	Course temp;
-	temp.course_id = courseID;
+	Course temp(courseID, 1);
+
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
 
     if(course_node == nullptr){
@@ -263,10 +256,8 @@ void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
         throw std::invalid_argument("INVALID_INPUT");
     }
 
-	Course c = course_node->val;
-
-	Lecture *lecture_ptr = c.lectures[classID];
-	*timeViewed = lecture_ptr->watch_num;	
+	Lecture *lecture_ptr = (course_node->val).lectures[classID];
+	*timeViewed = lecture_ptr->watch_num;
 }
 
 
@@ -378,6 +369,54 @@ Course::~Course(){
         delete[] lectures;
     }
 
+}
+
+Course::Course(int course_id, int lectures_num){
+
+    this->course_id = course_id;
+    this->lectures_num=lectures_num;
+    try {
+        this->lectures=new Lecture*[lectures_num];
+    }
+    catch(std::bad_alloc&) {
+        throw std::invalid_argument("ALLOCATION_ERROR");
+    }
+
+}
+
+Course::Course(const Course& c){
+
+    this->course_id = c.course_id;
+    this->lectures_num = c.lectures_num;
+    try {
+        this->lectures=new Lecture*[lectures_num];
+    }
+    catch(std::bad_alloc&) {
+        throw std::invalid_argument("ALLOCATION_ERROR");
+    }
+    for (int i = 0; i < c.lectures_num; ++i) {
+        this->lectures[i] = c.lectures[i];
+    }
+
+}
+
+Course& Course::operator=(const Course& c){
+    if (this == &c) {
+        return *this;
+    }
+    delete this->lectures;
+    this->course_id = c.course_id;
+    this->lectures_num = c.lectures_num;
+    try {
+        this->lectures = new Lecture*[c.lectures_num];
+    }
+    catch(std::bad_alloc&) {
+        throw std::invalid_argument("ALLOCATION_ERROR");
+    }
+    for (int i = 0; i < c.lectures_num; ++i) {
+        this->lectures[i] = c.lectures[i];
+    }
+    return *this;
 }
 
 bool operator<(const Course& c1, const Course& c2){

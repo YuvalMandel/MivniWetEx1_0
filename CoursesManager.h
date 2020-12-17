@@ -60,7 +60,10 @@ class Course{
 
 public:
 
+    Course(int course_id, int lectures_num);
     ~Course();
+    Course(const Course& c);
+    Course& operator=(const Course& c);
     int lectures_num;
     int course_id;
     Lecture** lectures;
