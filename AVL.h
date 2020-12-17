@@ -81,7 +81,9 @@ Value* AVLTree<Value>::Insert(const Value& val) {
 
 template<class Value>
 void AVLTree<Value>::Remove(const Value& val) {
-    this -> root = RemoveValueInNode(val, this -> root);
+    AVLNode<Value>* temp = RemoveValueInNode(val, this -> root);
+
+    this -> root = temp;
 }
 
 template<class Value>
@@ -234,23 +236,23 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
         } else{
 
             // Go to the smallest node under the current node.
-            AVLNode<Value> *newNode = node -> right_son;
-            while (newNode -> left_son != nullptr){
-                newNode = newNode -> left_son;
+            AVLNode<Value> *newNode_ptr = node -> right_son;
+            AVLNode<Value> newNode = *newNode_ptr;
+
+            while (newNode_ptr -> left_son != nullptr){
+                newNode_ptr = newNode_ptr -> left_son;
             }
 
             node -> right_son = RemoveValueInNode(
-                    newNode -> val, node -> right_son);
+                    newNode.val, node -> right_son);
 
-            newNode -> left_son = node -> left_son;
-            newNode -> right_son = node -> right_son;
+            node -> val = newNode.val;
 
-            node -> left_son = nullptr;
-            node -> right_son = nullptr;
+            UpdateHeight(node);
 
-            delete node;
-            UpdateHeight(newNode);
-            return BalanceNode(newNode);
+            AVLNode<Value> *temp = BalanceNode(node);
+
+            return temp;
 
         }
     }
