@@ -35,7 +35,7 @@ public:
     course_id(course_id), lectures_tree(lectures, lectures_num),
     holder_time_tree(holder_time_tree){}
     int course_id;
-    AVLTree<Lecture> lectures_tree;
+    AVLTree<Lecture> lectures_tree; // TODO make sure delete properly.
     void* holder_time_tree;
 
     friend bool operator<(const SubTreeCourse& c1, const SubTreeCourse& c2);
@@ -50,7 +50,7 @@ class TimeTree{
 
 public:
     int time_watched;
-    AVLTree<SubTreeCourse> subtree_tree;
+    AVLTree<SubTreeCourse> subtree_tree; // TODO make sure delete properly.
     TimeTree* bigger;
     TimeTree* smaller;
 
