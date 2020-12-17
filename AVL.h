@@ -175,6 +175,8 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
                 throw std::invalid_argument("ALLOCATION_ERROR");
             }
 
+            *InsertedValPtr = &(node -> left_son -> val);
+
         }
         else{
             node -> left_son = InsertValueInNode(val, node -> left_son, InsertedValPtr);
@@ -190,6 +192,8 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
             {
                 throw std::invalid_argument("ALLOCATION_ERROR");
             }
+
+            *InsertedValPtr = &(node -> right_son -> val);
 
         }
         else{

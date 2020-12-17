@@ -87,7 +87,11 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     update_inorder_pointers(stc.lectures_tree.root, c.lectures, &stc);
 
     // Add stc to tt.
-    this -> smallest_time_tree -> subtree_tree.Insert(stc);
+    SubTreeCourse* inserted_stc_ptr = this -> smallest_time_tree -> subtree_tree
+            .Insert(stc);
+
+    update_inorder_pointers(inserted_stc_ptr -> lectures_tree.root, c.lectures,
+                            inserted_stc_ptr);
 
     stc.lectures_tree.root = nullptr;
 
@@ -158,11 +162,11 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
         throw std::invalid_argument("FAILURE");
     }
 
-    if(course_node ->val.lectures_num < courseID + 1){
+    if(course_node ->val.lectures_num < classID + 1){
         throw std::invalid_argument("INVALID_INPUT");
     }
 
-	Lecture *lecture_ptr = (course_node -> val).lectures[classID];
+	Lecture* lecture_ptr = (course_node -> val).lectures[classID - 1];
 	Lecture lecture =  *lecture_ptr;
 	SubTreeCourse* stc_ptr = (SubTreeCourse*)lecture_ptr -> holder_sub_tree_course;
 	stc_ptr -> lectures_tree.Remove(lecture); //TODO
@@ -173,7 +177,11 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 
 	lecture.watch_num = original_tt_ptr -> time_watched + time;
 
-	while(current_tt_ptr -> bigger != nullptr || current_tt_ptr -> bigger -> time_watched < original_tt_ptr -> time_watched + time){
+	while(current_tt_ptr -> bigger != nullptr){
+	    if(current_tt_ptr -> bigger -> time_watched < original_tt_ptr ->
+	    time_watched + time){
+	        break;
+	    }
         current_tt_ptr = current_tt_ptr -> bigger;
 	}
 
