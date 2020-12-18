@@ -35,7 +35,7 @@ class SubTreeCourse{
 public:
 
     SubTreeCourse() = default;
-    SubTreeCourse(int course_id, Lecture* lectures, int lectures_num, void*
+    SubTreeCourse(int course_id, Lecture** lectures, int lectures_num, void*
     holder_time_tree) :
     course_id(course_id), lectures_tree(lectures, lectures_num),
     holder_time_tree(holder_time_tree){}

@@ -9,16 +9,26 @@ template<class Value>
 class AVLNode{
 
 public:
-    Value val;
-//    AVLNode* father;
+    Value* val_ptr;
     AVLNode<Value>* right_son;
     AVLNode<Value>* left_son;
     int height;
 
-    AVLNode(const Value& val):val(val),right_son(nullptr),left_son(nullptr),
-    height(1){};
+    AVLNode(Value* val_ptr): val_ptr(val_ptr),
+                             right_son(nullptr),
+                             left_son(nullptr),
+                             height(1){};
+
+    ~AVLNode();
 
 };
+
+template<class Value>
+AVLNode<Value>::~AVLNode(){
+    if(this -> val_ptr != nullptr){
+        delete this -> val_ptr;
+    }
+}
 
 template<class Value>
 class AVLTree{
@@ -26,27 +36,27 @@ class AVLTree{
 public:
 
     AVLTree() : root(nullptr){}
-    AVLTree(Value* vals, int length) :root(createTreeNode(vals, 0, length-1)){}
+    AVLTree(Value** vals, int length) :root(createTreeNode(vals, 0, length-1)){}
     ~AVLTree() {DestroyTree(root);}
 //    AVLTree(const AVLTree<Value>& avl_tree);
 //    AVLTree<Value>& operator=(const AVLTree<Value>& avl_tree);
 
     AVLNode<Value>* root;
 
-    Value* Insert(Value const& val);
+    void Insert(Value* val);
 
     void Remove(const Value& val);
     AVLNode<Value>* FindValue(const Value& val);
 
 private:
 
-    AVLNode<Value>* createTreeNode(Value* vals, int start_index, int
+    AVLNode<Value>* createTreeNode(Value** vals, int start_index, int
     final_index);
     void DestroyTree(AVLNode<Value>* root);
     AVLNode<Value>* FindValueInNode(const Value& val, AVLNode<Value>* node);
-    AVLNode<Value>* InsertValueInNode(const Value& val, AVLNode<Value>* node,
-                                      Value** InsertedValPtr);
-    AVLNode<Value>* RemoveValueInNode(const Value& val, AVLNode<Value>* node);
+    AVLNode<Value>* InsertValueInNode(Value* val_ptr, AVLNode<Value>* node);
+    AVLNode<Value>* RemoveValueInNode(const Value& val, AVLNode<Value>* node,
+                                      bool delete_node = true);
     void UpdateHeight(AVLNode<Value>* node);
     AVLNode<Value>* BalanceNode(AVLNode<Value>* node);
     int CalcBalanceFactor(AVLNode<Value>* node);
@@ -61,26 +71,16 @@ private:
 #include <algorithm>
 #include <iostream>
 
-//template<class Value>
-//AVLTree<Value>::AVLTree(const AVLTree<Value>& avl_tree){
-//    this->root=avl_tree.root;
-//}
-//
-//template<class Value>
-//AVLTree<Value>& AVLTree<Value>::operator=(const AVLTree<Value>& avl_tree){
-//    this->root=avl_tree.root;
-//}
-
 template<class Value>
-Value* AVLTree<Value>::Insert(const Value& val) {
+void AVLTree<Value>::Insert(Value* val_ptr) {
 
-    Value* temp = nullptr;
-    this -> root = InsertValueInNode(val, this -> root, &temp);
-    return temp;
+    this -> root = InsertValueInNode(val_ptr, this -> root);
+
 }
 
 template<class Value>
 void AVLTree<Value>::Remove(const Value& val) {
+
     AVLNode<Value>* temp = RemoveValueInNode(val, this -> root);
 
     this -> root = temp;
@@ -101,7 +101,7 @@ void AVLTree<Value>::DestroyTree(AVLNode<Value>* root){
 }
 
 template<class Value>
-AVLNode<Value>* AVLTree<Value>::createTreeNode(Value* vals, int start_index,
+AVLNode<Value>* AVLTree<Value>::createTreeNode(Value** vals, int start_index,
                                                int final_index){
     if(final_index < start_index) return nullptr;
 
@@ -117,7 +117,6 @@ AVLNode<Value>* AVLTree<Value>::createTreeNode(Value* vals, int start_index,
         throw std::invalid_argument("ALLOCATION_ERROR");
     }
 
-//    base -> val = vals[middle_index];
     if(start_index != final_index) {
         base->left_son = createTreeNode(vals, start_index, middle_index - 1);
         base->right_son = createTreeNode(vals, middle_index + 1, final_index);
@@ -130,13 +129,13 @@ AVLNode<Value>* AVLTree<Value>::FindValueInNode(const Value& val, AVLNode<Value>
     if(node == nullptr){
         return nullptr;
     }
-    else if(node -> val == val){
+    else if(*(node -> val_ptr) == val){
         return node;
     }
-    else if (val < node -> val){
+    else if (val < *(node -> val_ptr)){
         return FindValueInNode(val, node -> left_son);
     }
-    else if (val > node -> val){
+    else if (val > *(node -> val_ptr)){
         return FindValueInNode(val, node -> right_son);
     }
 
@@ -145,61 +144,55 @@ AVLNode<Value>* AVLTree<Value>::FindValueInNode(const Value& val, AVLNode<Value>
 }
 
 template<class Value>
-AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
-                                                  AVLNode<Value>* node,
-                                                  Value** InsertedValPtr) {
+AVLNode<Value>* AVLTree<Value>::InsertValueInNode(Value* val_ptr,
+                                                  AVLNode<Value>* node) {
     if(node == nullptr){
 
         AVLNode<Value>* temp;
 
         try {
-            temp = new AVLNode<Value>(val);
+            temp = new AVLNode<Value>(val_ptr);
         }
         catch(std::bad_alloc&)
         {
             throw std::invalid_argument("ALLOCATION_ERROR");
         }
 
-        *InsertedValPtr = &(temp -> val);
         return temp;
     }
-    else if(node -> val == val){
+    else if(*(node -> val_ptr) == *val_ptr){
         return nullptr; // TODO add exception
     }
-    else if (val < node -> val){
+    else if (*val_ptr < *(node -> val_ptr)){
         if(node -> left_son == nullptr){
 
             try {
-                node -> left_son = new AVLNode<Value>(val);
+                node -> left_son = new AVLNode<Value>(val_ptr);
             }
             catch(std::bad_alloc&)
             {
                 throw std::invalid_argument("ALLOCATION_ERROR");
             }
 
-            *InsertedValPtr = &(node -> left_son -> val);
-
         }
         else{
-            node -> left_son = InsertValueInNode(val, node -> left_son, InsertedValPtr);
+            node -> left_son = InsertValueInNode(val_ptr, node -> left_son);
         }
     }
-    else if (val > node -> val){
+    else if (*val_ptr > *(node -> val_ptr)){
         if(node -> right_son == nullptr){
 
             try {
-                node -> right_son = new AVLNode<Value>(val);
+                node -> right_son = new AVLNode<Value>(val_ptr);
             }
             catch(std::bad_alloc&)
             {
                 throw std::invalid_argument("ALLOCATION_ERROR");
             }
 
-            *InsertedValPtr = &(node -> right_son -> val);
-
         }
         else{
-            node -> right_son = InsertValueInNode(val, node -> right_son, InsertedValPtr);
+            node -> right_son = InsertValueInNode(val_ptr, node -> right_son);
         }
     }
     UpdateHeight(node);
@@ -208,44 +201,49 @@ AVLNode<Value>* AVLTree<Value>::InsertValueInNode(const Value& val,
 
 template<class Value>
 AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
-                                                  AVLNode<Value> *node) {
+                                                  AVLNode<Value> *node, bool
+                                                  delete_node) {
     if(node == nullptr){
         return nullptr;
     }
-    else if(val < node -> val){
-        node -> left_son = RemoveValueInNode(val, node -> left_son);
+    else if(val < *(node -> val_ptr)){
+        node -> left_son = RemoveValueInNode(val, node -> left_son, delete_node);
         UpdateHeight(node);
         return BalanceNode(node);
     }
-    else if(val > node -> val){
-        node -> right_son = RemoveValueInNode(val, node -> right_son);
+    else if(val > *(node -> val_ptr)){
+        node -> right_son = RemoveValueInNode(val, node -> right_son, delete_node);
         UpdateHeight(node);
         return BalanceNode(node);
     }else{
         if(node -> right_son == nullptr && node -> left_son == nullptr){
-            delete node;
+            if(delete_node){
+                delete node;
+            }
             return nullptr;
         } else if(node -> right_son == nullptr){
             AVLNode<Value> *newNode = node -> left_son;
-            delete node;
+            if(delete_node){
+                delete node;
+            }
             return newNode;
         } else if(node -> left_son == nullptr){
             AVLNode<Value> *newNode = node -> right_son;
-            delete node;
+            if(delete_node){
+                delete node;
+            }
             return newNode;
         } else{
 
             // Go to the smallest node under the current node.
-            AVLNode<Value> *newNode_ptr = node -> right_son;
+            AVLNode<Value>* newNode_ptr = node -> right_son;
 
             while (newNode_ptr -> left_son != nullptr){
                 newNode_ptr = newNode_ptr -> left_son;
             }
 
-            AVLNode<Value> newNode = *newNode_ptr;
-
             node -> right_son = RemoveValueInNode(
-                    newNode.val, node -> right_son);
+                    newNode_ptr -> val_ptr, node -> right_son, false);
 
             newNode_ptr -> right_son = node -> right_son;
             newNode_ptr -> left_son = node -> left_son;
@@ -253,6 +251,13 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
             UpdateHeight(newNode_ptr);
 
             AVLNode<Value> *temp = BalanceNode(newNode_ptr);
+
+            node -> right_son = nullptr;
+            node -> left_son = nullptr;
+
+            if(delete_node){
+                delete node;
+            }
 
             return temp;
 
