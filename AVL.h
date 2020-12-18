@@ -247,11 +247,12 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
             node -> right_son = RemoveValueInNode(
                     newNode.val, node -> right_son);
 
-            node -> val = newNode.val;
+            newNode_ptr -> right_son = node -> right_son;
+            newNode_ptr -> left_son = node -> left_son;
 
-            UpdateHeight(node);
+            UpdateHeight(newNode_ptr);
 
-            AVLNode<Value> *temp = BalanceNode(node);
+            AVLNode<Value> *temp = BalanceNode(newNode_ptr);
 
             return temp;
 
