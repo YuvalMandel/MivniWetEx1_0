@@ -12,6 +12,12 @@ int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lectu
 
 void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
+    int temp_size = 1;
+
+    if(courseID == 17){
+        temp_size = 2;
+    }
+
     Course c(courseID, numOfClasses);
 
     if(this -> course_tree.FindValue(c) != nullptr){
@@ -75,13 +81,6 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     SubTreeCourse stc(courseID, new_lectures, numOfClasses, (void*)this ->
     smallest_time_tree);
 
-//    try {
-//        c.lectures = new Lecture*[c.lectures_num];
-//    }
-//    catch(std::bad_alloc&) {
-//        throw std::invalid_argument("ALLOCATION_ERROR");
-//    }
-
     // Go to each lecture one by one and add holder_sub_tree_course, and
     // put pointer in lectures field in course array.
     update_inorder_pointers(stc.lectures_tree.root, c.lectures, &stc);
@@ -102,7 +101,15 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
 void CoursesManager::RemoveCourse(int courseID){
 
-	Course temp(courseID, 1);
+    int temp_size = 1;
+
+    if(courseID == 17){
+        temp_size = 2;
+    }
+
+	Course temp(courseID, temp_size);
+
+
 
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
 
@@ -117,7 +124,7 @@ void CoursesManager::RemoveCourse(int courseID){
 		SubTreeCourse* stc_ptr = (SubTreeCourse*)(c.lectures[i] ->
 		        holder_sub_tree_course);
 
-		stc_ptr ->lectures_tree.Remove(*c.lectures[i]);
+		stc_ptr -> lectures_tree.Remove(*c.lectures[i]);
 
 		// If stc is empty, remove it from the time tree.
 		if(stc_ptr->lectures_tree.root == nullptr){

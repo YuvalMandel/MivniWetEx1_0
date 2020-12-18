@@ -94,8 +94,8 @@ AVLNode<Value>* AVLTree<Value>::FindValue(const Value& val) {
 template<class Value>
 void AVLTree<Value>::DestroyTree(AVLNode<Value>* root){
     if(root != nullptr){
-        DestroyTree(root ->right_son);
-        DestroyTree(root ->left_son);
+        DestroyTree(root -> right_son);
+        DestroyTree(root -> left_son);
     }
     delete root;
 }
@@ -237,11 +237,12 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
 
             // Go to the smallest node under the current node.
             AVLNode<Value> *newNode_ptr = node -> right_son;
-            AVLNode<Value> newNode = *newNode_ptr;
 
             while (newNode_ptr -> left_son != nullptr){
                 newNode_ptr = newNode_ptr -> left_son;
             }
+
+            AVLNode<Value> newNode = *newNode_ptr;
 
             node -> right_son = RemoveValueInNode(
                     newNode.val, node -> right_son);
