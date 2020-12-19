@@ -124,7 +124,7 @@ void CoursesManager::RemoveCourse(int courseID){
 
 			TimeTree* tt_ptr = (TimeTree*)stc_ptr -> holder_time_tree;
 
-			tt_ptr -> subtree_tree.Remove(*stc_ptr);
+			tt_ptr -> subtree_tree.Remove(*stc_ptr); // Actually deletes.
 
 			if(tt_ptr->subtree_tree.root == nullptr){
 
@@ -148,12 +148,13 @@ void CoursesManager::RemoveCourse(int courseID){
 	}
 
 
-	this -> course_tree.Remove(c_ptr);
+	this -> course_tree.Remove(*c_ptr); // Deletes course, but not the values
+	// in the course array.
 
 }
 
 
-// We deleete the actual lecture!!!, create a new one and insret to new stc,
+// We delete the actual lecture!!!, create a new one and insret to new stc,
 // and update the course lectures array.
 void CoursesManager::WatchClass(int courseID, int classID, int time){
 	
@@ -165,20 +166,23 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
         throw std::invalid_argument("FAILURE");
     }
 
-    if(course_node ->val_ptr.lectures_num < classID + 1){
+    if(course_node ->val_ptr -> lectures_num < classID + 1){
         throw std::invalid_argument("INVALID_INPUT");
     }
 
-	Lecture* lecture_ptr = (course_node -> val_ptr).lectures[classID];
-	Lecture lecture =  *lecture_ptr;
-	SubTreeCourse* stc_ptr = (SubTreeCourse*)lecture_ptr -> holder_sub_tree_course;
-	stc_ptr -> lectures_tree.Remove(lecture); //TODO
+	Lecture* original_lecture_ptr = (course_node -> val_ptr) -> lectures[classID];
 
-	TimeTree* original_tt_ptr = (TimeTree*)stc_ptr -> holder_time_tree;
+	Lecture* new_lecture_ptr =  new Lecture(*original_lecture_ptr);
+
+	SubTreeCourse* original_stc_ptr = (SubTreeCourse*)original_lecture_ptr -> holder_sub_tree_course;
+
+	original_stc_ptr -> lectures_tree.Remove(*original_lecture_ptr); //TODO
+
+	TimeTree* original_tt_ptr = (TimeTree*)original_stc_ptr -> holder_time_tree;
 
 	TimeTree* current_tt_ptr = original_tt_ptr;
 
-	lecture.watch_num = original_tt_ptr -> time_watched + time;
+    new_lecture_ptr -> watch_num = original_tt_ptr -> time_watched + time;
 
 	while(current_tt_ptr -> bigger != nullptr){
 	    if(current_tt_ptr -> bigger -> time_watched < original_tt_ptr ->
@@ -189,19 +193,22 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 	}
 
 	if(current_tt_ptr -> time_watched == original_tt_ptr -> time_watched + time){
-		AVLNode<SubTreeCourse>* current_stc_node = current_tt_ptr -> subtree_tree.FindValue(*stc_ptr);
+
+		AVLNode<SubTreeCourse>* current_stc_node = current_tt_ptr -> subtree_tree.FindValue(*original_stc_ptr);
+
 		if (current_stc_node){
-			lecture.holder_sub_tree_course = &(current_stc_node -> val_ptr);
-            (course_node -> val_ptr).lectures[classID] =
-                    current_stc_node -> val_ptr.lectures_tree.Insert(lecture);
+            new_lecture_ptr -> holder_sub_tree_course =
+			        &(current_stc_node -> val_ptr);
+            (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
+            current_stc_node -> val_ptr -> lectures_tree.Insert(new_lecture_ptr);
 		}else{
-			SubTreeCourse new_stc;
-			new_stc.holder_time_tree = current_tt_ptr;
-			new_stc.course_id = courseID;
-            (course_node -> val_ptr).lectures[classID] = new_stc.lectures_tree.Insert(lecture);
-            (course_node -> val_ptr).lectures[classID] -> holder_sub_tree_course = current_tt_ptr ->
-			        subtree_tree.Insert(new_stc);
-            new_stc.lectures_tree.root = nullptr;
+			SubTreeCourse* new_stc_ptr = new SubTreeCourse;
+            new_stc_ptr -> holder_time_tree = current_tt_ptr;
+            new_stc_ptr -> course_id = courseID;
+            new_lecture_ptr -> holder_sub_tree_course = new_stc_ptr;
+            (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
+            new_stc_ptr -> lectures_tree.Insert(new_lecture_ptr);
+            current_tt_ptr -> subtree_tree.Insert(new_stc_ptr);
 		}
 	}else{
 
@@ -215,7 +222,7 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
             throw std::invalid_argument("ALLOCATION_ERROR");
         }
 
-        new_tt_ptr -> time_watched = lecture.watch_num;
+        new_tt_ptr -> time_watched = new_lecture_ptr -> watch_num;
         new_tt_ptr -> smaller = current_tt_ptr;
         new_tt_ptr -> bigger = current_tt_ptr -> bigger;
         current_tt_ptr -> bigger = new_tt_ptr;
@@ -224,23 +231,23 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 		}else{
 		    this -> largest_time_tree = new_tt_ptr;
 		}
-		SubTreeCourse new_stc;
-		new_stc.holder_time_tree = new_tt_ptr;
-		new_stc.course_id = courseID;
-        (course_node -> val_ptr).lectures[classID] = new_stc.lectures_tree.Insert(lecture);
-        (course_node -> val_ptr).lectures[classID] -> holder_sub_tree_course = new_tt_ptr -> subtree_tree
-		        .Insert(new_stc);
-        new_stc.lectures_tree.root = nullptr;
+
+		SubTreeCourse* new_stc_ptr = new SubTreeCourse;
+        new_stc_ptr -> holder_time_tree = current_tt_ptr;
+        new_stc_ptr -> course_id = courseID;
+        new_lecture_ptr -> holder_sub_tree_course = new_stc_ptr;
+        (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
+        new_stc_ptr -> lectures_tree.Insert(new_lecture_ptr);
+        current_tt_ptr -> subtree_tree.Insert(new_stc_ptr);
 	}
 	
-	// If stc is empty, remove it from the time tree.
-	if(stc_ptr->lectures_tree.root == nullptr){
+	// If original stc is empty, remove it from the time tree.
+	if(original_stc_ptr->lectures_tree.root == nullptr){
 
-		TimeTree* tt_ptr = (TimeTree*)stc_ptr -> holder_time_tree;
+		TimeTree* tt_ptr = (TimeTree*)original_stc_ptr -> holder_time_tree;
+		tt_ptr -> subtree_tree.Remove(*original_stc_ptr);
 
-		tt_ptr -> subtree_tree.Remove(*stc_ptr);
-
-		if(tt_ptr->subtree_tree.root == nullptr){
+		if(tt_ptr -> subtree_tree.root == nullptr){
 
 			if(tt_ptr -> bigger != nullptr){
                 tt_ptr -> bigger -> smaller = tt_ptr -> smaller;
