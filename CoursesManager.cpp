@@ -288,14 +288,7 @@ void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
 void CoursesManager::GetMostViewedClasses(
         int numOfClasses, int *courses, int *classes){
 
-    int  temp = 0;
-
-    if(numOfClasses == 12){
-        temp = 1;
-        temp = 0;
-    }
-
-	int num_Of_Classes_left = timeTree_search(numOfClasses + temp, courses, classes,
+	int num_Of_Classes_left = timeTree_search(numOfClasses, courses, classes,
                                          this -> largest_time_tree);
 
 
@@ -310,6 +303,13 @@ int timeTree_search(
 
 	if(tt_ptr == nullptr){
 		return numOfClasses;
+	}
+
+	int temp = 0;
+
+	if(tt_ptr ->time_watched == 11){
+        temp = 1;
+        temp = 0;
 	}
 
 	int num_Of_Classes_left = stc_inorder(numOfClasses, courses, classes,
@@ -351,8 +351,8 @@ int stc_inorder(int numOfClasses, int *courses, int *classes,
     }else{
 		num_Of_Classes_left =
 		        stc_inorder(num_Of_Classes_left,
-                &courses[num_Of_Classes_left],
-                &classes[num_Of_Classes_left],
+                &courses[numOfClasses - num_Of_Classes_left],
+                &classes[numOfClasses - num_Of_Classes_left],
                 stc_node->right_son);
 
         return num_Of_Classes_left;
@@ -372,11 +372,13 @@ int lectures_inorder(int numOfClasses, int *courses, int *classes,
 	if(num_Of_Classes_left == 0) {
         return 0;
     }else{
-		classes[numOfClasses - num_Of_Classes_left] = lecture_node-> val_ptr
-		         -> lecture_id;
-		SubTreeCourse* temp_stc_ptr = (SubTreeCourse*)lecture_node->val_ptr
-		        -> holder_sub_tree_course;
-		courses[numOfClasses - num_Of_Classes_left] = temp_stc_ptr -> course_id;
+		classes[numOfClasses - num_Of_Classes_left] =
+		        lecture_node-> val_ptr -> lecture_id;
+		SubTreeCourse* temp_stc_ptr =
+		        (SubTreeCourse*)lecture_node-> val_ptr ->
+		        holder_sub_tree_course;
+		courses[numOfClasses - num_Of_Classes_left] =
+		        temp_stc_ptr -> course_id;
 		num_Of_Classes_left -= 1;
 	}
 	if(num_Of_Classes_left == 0) {
