@@ -4,8 +4,6 @@
 #include "CoursesManager.h"
 
 
-void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture** arr,
-                             SubTreeCourse* stc_ptr);
 int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt_ptr );
 int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCourse> *stc_node);
 int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lecture> *lecture_node);
@@ -278,30 +276,33 @@ void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
         throw std::invalid_argument("FAILURE");
     }
 
-    if(course_node ->val_ptr.lectures_num < classID + 1){
+    if(course_node -> val_ptr -> lectures_num < classID + 1){
         throw std::invalid_argument("INVALID_INPUT");
     }
 
-	Lecture *lecture_ptr = (course_node->val_ptr).lectures[classID];
-	*timeViewed = lecture_ptr->watch_num;
+	Lecture *lecture_ptr = (course_node -> val_ptr) -> lectures[classID];
+	*timeViewed = lecture_ptr -> watch_num;
 }
 
 
-void CoursesManager::GetMostViewedClasses(int numOfClasses, int *courses, int
-*classes){
+void CoursesManager::GetMostViewedClasses(
+        int numOfClasses, int *courses, int *classes){
+
 	int num_Of_Classes_left = timeTree_search(numOfClasses, courses, classes,
                                          this -> largest_time_tree);
 
 	if(num_Of_Classes_left > 0){throw std::invalid_argument("FAILURE");}
 }
 
-int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt_ptr ){
+int timeTree_search(
+        int numOfClasses, int *courses, int *classes, TimeTree* tt_ptr ){
+
 	if(tt_ptr == nullptr){
 		return numOfClasses;
 	}
 
 	int num_Of_Classes_left = stc_inorder(numOfClasses, courses, classes,
-                                          tt_ptr->subtree_tree.root);
+                                          tt_ptr -> subtree_tree.root);
 
 	if(num_Of_Classes_left > 0){
 		return timeTree_search(num_Of_Classes_left,
@@ -314,12 +315,15 @@ int timeTree_search(int numOfClasses, int *courses, int *classes, TimeTree* tt_p
 	}
 }
 
-int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCourse> *stc_node){
+int stc_inorder(int numOfClasses, int *courses, int *classes,
+                AVLNode<SubTreeCourse> *stc_node){
+
 	if(stc_node == nullptr){
 		return numOfClasses;
 	}
 
-	int num_Of_Classes_left = stc_inorder(numOfClasses,courses, classes, stc_node->left_son);
+	int num_Of_Classes_left =
+	        stc_inorder(numOfClasses,courses, classes, stc_node->left_son);
 
 	if(num_Of_Classes_left == 0){
 		return 0;
@@ -329,63 +333,60 @@ int stc_inorder(int numOfClasses, int *courses, int *classes, AVLNode<SubTreeCou
 		        lectures_inorder(num_Of_Classes_left,
                 &courses[numOfClasses - num_Of_Classes_left],
                 &classes[numOfClasses - num_Of_Classes_left],
-                stc_node->val_ptr.lectures_tree.root);
+                stc_node -> val_ptr -> lectures_tree.root);
 	}
 	if(num_Of_Classes_left == 0) {
         return 0;
     }else{
-		return num_Of_Classes_left = stc_inorder(num_Of_Classes_left,&courses[num_Of_Classes_left],
-                                                 &classes[num_Of_Classes_left], stc_node->right_son);
-	}
+		num_Of_Classes_left =
+		        stc_inorder(num_Of_Classes_left,
+                &courses[num_Of_Classes_left],
+                &classes[num_Of_Classes_left],
+                stc_node->right_son);
+
+        return num_Of_Classes_left;
+    }
 }
 
-int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lecture> *lecture_node){
+int lectures_inorder(int numOfClasses, int *courses, int *classes,
+                     AVLNode<Lecture> *lecture_node){
+
 	if(lecture_node == nullptr){
 		return numOfClasses;
 	}
-	int num_Of_Classes_left = lectures_inorder(numOfClasses,courses, classes, lecture_node->left_son);
+
+	int num_Of_Classes_left = lectures_inorder(numOfClasses, courses,
+                                            classes, lecture_node->left_son);
 	
 	if(num_Of_Classes_left == 0) {
         return 0;
     }else{
-		classes[numOfClasses - num_Of_Classes_left] = lecture_node->val_ptr
-		        .lecture_id;
+		classes[numOfClasses - num_Of_Classes_left] = lecture_node-> val_ptr
+		         -> lecture_id;
 		SubTreeCourse* temp_stc_ptr = (SubTreeCourse*)lecture_node->val_ptr
-		        .holder_sub_tree_course;
+		        -> holder_sub_tree_course;
 		courses[numOfClasses - num_Of_Classes_left] = temp_stc_ptr -> course_id;
 		num_Of_Classes_left -= 1;
 	}
 	if(num_Of_Classes_left == 0) {
         return 0;
     }else{
-		return num_Of_Classes_left = lectures_inorder(num_Of_Classes_left,
-                                                &courses[numOfClasses -
-                                                num_Of_Classes_left],
-                                                &classes[numOfClasses -
-                                                num_Of_Classes_left],
-                                                lecture_node->right_son);
-	}
-}
+		num_Of_Classes_left = lectures_inorder(num_Of_Classes_left,
+               &courses[numOfClasses - num_Of_Classes_left],
+               &classes[numOfClasses - num_Of_Classes_left],
+               lecture_node -> right_son);
 
-void update_inorder_pointers(AVLNode<Lecture> *avl_node, Lecture** arr,
-                             SubTreeCourse* stc_ptr){
-	if(avl_node == nullptr){
-		return;
+        return num_Of_Classes_left;
 	}
-	update_inorder_pointers(avl_node->left_son,arr ,stc_ptr);
-	
-	arr[avl_node->val_ptr.lecture_id] = &(avl_node->val_ptr);
-	avl_node->val_ptr.holder_sub_tree_course = stc_ptr;
-
-	update_inorder_pointers(avl_node->right_son,arr ,stc_ptr);
 }
 
 CoursesManager::~CoursesManager(){
 
     // Go to each tree from smallest to largest and call delete each tree,so
     // each tree destructor will be called.
-    TimeTree* current_tt_ptr = this->smallest_time_tree;
+    TimeTree* current_tt_ptr = this -> smallest_time_tree;
     TimeTree* next_tt_ptr;
+
     while(current_tt_ptr != nullptr){
         next_tt_ptr = current_tt_ptr -> bigger;
         delete current_tt_ptr;
