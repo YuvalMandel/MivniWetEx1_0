@@ -65,14 +65,6 @@ StatusType GetMostViewedClasses(void *DS, int numOfClasses, int *courses, int
     nullptr)
         return INVALID_INPUT;
     try{
-
-        int  temp = 0;
-
-        if(numOfClasses == 12){
-            temp = 1;
-            temp = 0;
-        }
-
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> GetMostViewedClasses(numOfClasses, courses, classes);
     }catch(std::exception& e) {

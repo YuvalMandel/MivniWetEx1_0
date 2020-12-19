@@ -10,12 +10,6 @@ int lectures_inorder(int numOfClasses, int *courses, int *classes, AVLNode<Lectu
 
 void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
-    int temp_size = 1;
-
-    if(courseID == 17){
-        temp_size = 2;
-    }
-
     Course* c_ptr = new Course(courseID, numOfClasses);
 
     if(this -> course_tree.FindValue(*c_ptr) != nullptr){
@@ -92,12 +86,6 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
 
 void CoursesManager::RemoveCourse(int courseID){
-
-    int temp_size = 1;
-
-    if(courseID == 17){
-        temp_size = 2;
-    }
 
 	Course temp(courseID, temp_size);
 
@@ -303,13 +291,6 @@ int timeTree_search(
 
 	if(tt_ptr == nullptr){
 		return numOfClasses;
-	}
-
-	int temp = 0;
-
-	if(tt_ptr ->time_watched == 11){
-        temp = 1;
-        temp = 0;
 	}
 
 	int num_Of_Classes_left = stc_inorder(numOfClasses, courses, classes,
