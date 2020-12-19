@@ -13,6 +13,7 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     Course* c_ptr = new Course(courseID, numOfClasses);
 
     if(this -> course_tree -> FindValue(*c_ptr) != nullptr){
+        delete c_ptr;
         throw std::invalid_argument("FAILURE");
     }
 
