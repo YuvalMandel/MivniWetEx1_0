@@ -12,7 +12,7 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
     Course* c_ptr = new Course(courseID, numOfClasses);
 
-    if(this -> course_tree.FindValue(*c_ptr) != nullptr){
+    if(this -> course_tree -> FindValue(*c_ptr) != nullptr){
         throw std::invalid_argument("FAILURE");
     }
 
@@ -80,7 +80,7 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
     // Add stc to tt.
     this -> smallest_time_tree -> subtree_tree.Insert(stc_ptr);
 
-    this -> course_tree.Insert(c_ptr);
+    this -> course_tree -> Insert(c_ptr);
 
 }
 
@@ -89,7 +89,7 @@ void CoursesManager::RemoveCourse(int courseID){
 
 	Course temp(courseID, 1);
 
-	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
+	AVLNode<Course> *course_node = this-> course_tree -> FindValue(temp);
 
     if(course_node == nullptr){
         throw std::invalid_argument("FAILURE");
@@ -134,7 +134,7 @@ void CoursesManager::RemoveCourse(int courseID){
 	}
 
 
-	this -> course_tree.Remove(*c_ptr); // Deletes course, but not the values
+	this -> course_tree -> Remove(*c_ptr); // Deletes course, but not the values
 	// in the course array.
 
 }
@@ -146,7 +146,7 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 	
 	Course temp(courseID, 1);
 
-	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
+	AVLNode<Course> *course_node = this-> course_tree -> FindValue(temp);
 
     if(course_node == nullptr){
         throw std::invalid_argument("FAILURE");
@@ -258,7 +258,7 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
 	Course temp(courseID, 1);
 
-	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
+	AVLNode<Course> *course_node = this-> course_tree -> FindValue(temp);
 
     if(course_node == nullptr){
         throw std::invalid_argument("FAILURE");
@@ -374,6 +374,10 @@ int lectures_inorder(int numOfClasses, int *courses, int *classes,
 	}
 }
 
+CoursesManager::CoursesManager(){
+    this -> course_tree = new AVLTree<Course>;
+}
+
 CoursesManager::~CoursesManager(){
 
     // Go to each tree from smallest to largest and call delete each tree,so
@@ -388,9 +392,10 @@ CoursesManager::~CoursesManager(){
     }
 
     // The course tree destructor will be called in the end of the time trees.
-//    ~(this -> course_tree);
+    delete this -> course_tree;
 
 }
+
 
 Course::~Course(){
 

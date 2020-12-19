@@ -88,7 +88,7 @@ class CoursesManager {
 private:
 
     // This is the root of the course tree.
-    AVLTree<Course> course_tree;
+    AVLTree<Course>* course_tree;
 
     // This is an internal pointer to the largest time tree.
     TimeTree* largest_time_tree;
@@ -99,6 +99,7 @@ private:
 
 public:
 
+    CoursesManager();
     ~CoursesManager();
 
     void AddCourse (int courseID, int numOfClasses);
