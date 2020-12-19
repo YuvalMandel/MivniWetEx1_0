@@ -50,8 +50,8 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
         this -> smallest_time_tree = tt_ptr;
         this -> largest_time_tree = tt_ptr;
     } else if(this -> smallest_time_tree -> time_watched > 0){
-        // create time tree 0.
 
+        // create time tree 0.
         try {
             tt_ptr = new TimeTree;
         }
@@ -102,11 +102,11 @@ void CoursesManager::RemoveCourse(int courseID){
 		SubTreeCourse* stc_ptr =
 		        (SubTreeCourse*)(c_ptr-> lectures[i] -> holder_sub_tree_course);
 
-		stc_ptr -> lectures_tree.Remove(*(c_ptr -> lectures[i])); // Do we
+		stc_ptr -> lectures_tree -> Remove(*(c_ptr -> lectures[i])); // Do we
 		// actually delete lecture.
 
 		// If stc is empty, remove it from the time tree.
-		if(stc_ptr->lectures_tree.root == nullptr){
+		if(stc_ptr->lectures_tree -> root == nullptr){
 
 			TimeTree* tt_ptr = (TimeTree*)stc_ptr -> holder_time_tree;
 
@@ -162,7 +162,7 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 
 	SubTreeCourse* original_stc_ptr = (SubTreeCourse*)original_lecture_ptr -> holder_sub_tree_course;
 
-	original_stc_ptr -> lectures_tree.Remove(*original_lecture_ptr); //TODO
+	original_stc_ptr -> lectures_tree -> Remove(*original_lecture_ptr); //TODO
 
 	TimeTree* original_tt_ptr = (TimeTree*)original_stc_ptr -> holder_time_tree;
 
@@ -186,14 +186,14 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
             new_lecture_ptr -> holder_sub_tree_course =
 			        current_stc_node -> val_ptr;
             (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
-            current_stc_node -> val_ptr -> lectures_tree.Insert(new_lecture_ptr);
+            current_stc_node -> val_ptr -> lectures_tree -> Insert(new_lecture_ptr);
 		}else{
 			SubTreeCourse* new_stc_ptr = new SubTreeCourse;
             new_stc_ptr -> holder_time_tree = current_tt_ptr;
             new_stc_ptr -> course_id = courseID;
             new_lecture_ptr -> holder_sub_tree_course = new_stc_ptr;
             (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
-            new_stc_ptr -> lectures_tree.Insert(new_lecture_ptr);
+            new_stc_ptr -> lectures_tree -> Insert(new_lecture_ptr);
             current_tt_ptr -> subtree_tree.Insert(new_stc_ptr);
 		}
 	}else{
@@ -223,12 +223,12 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
         new_stc_ptr -> course_id = courseID;
         new_lecture_ptr -> holder_sub_tree_course = new_stc_ptr;
         (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
-        new_stc_ptr -> lectures_tree.Insert(new_lecture_ptr);
+        new_stc_ptr -> lectures_tree -> Insert(new_lecture_ptr);
         new_tt_ptr -> subtree_tree.Insert(new_stc_ptr);
 	}
 	
 	// If original stc is empty, remove it from the time tree.
-	if(original_stc_ptr->lectures_tree.root == nullptr){
+	if(original_stc_ptr->lectures_tree -> root == nullptr){
 
 		TimeTree* tt_ptr = (TimeTree*)original_stc_ptr -> holder_time_tree;
 		tt_ptr -> subtree_tree.Remove(*original_stc_ptr);
@@ -325,7 +325,7 @@ int stc_inorder(int numOfClasses, int *courses, int *classes,
 		        lectures_inorder(num_Of_Classes_left,
                 &courses[numOfClasses - num_Of_Classes_left],
                 &classes[numOfClasses - num_Of_Classes_left],
-                stc_node -> val_ptr -> lectures_tree.root);
+                stc_node -> val_ptr -> lectures_tree -> root);
 	}
 	if(num_Of_Classes_left == 0) {
         return 0;
@@ -375,6 +375,8 @@ int lectures_inorder(int numOfClasses, int *courses, int *classes,
 }
 
 CoursesManager::CoursesManager(){
+    this -> smallest_time_tree = nullptr;
+    this -> largest_time_tree = nullptr;
     this -> course_tree = new AVLTree<Course>;
 }
 
@@ -453,17 +455,37 @@ Course& Course::operator=(const Course& c){
     return *this;
 }
 
-SubTreeCourse::SubTreeCourse(const SubTreeCourse& stc){
-    this->course_id=stc.course_id;
-    this->holder_time_tree=stc.holder_time_tree;
-    this->lectures_tree=stc.lectures_tree;
+SubTreeCourse::SubTreeCourse(){
+    this -> lectures_tree = new AVLTree<Lecture>;
+    this -> holder_time_tree = nullptr;
+    this -> course_id = -1;
 }
-SubTreeCourse& SubTreeCourse::operator=(const SubTreeCourse& stc){
-    this->course_id=stc.course_id;
-    this->holder_time_tree=stc.holder_time_tree;
-    this->lectures_tree=stc.lectures_tree;
-    return *this;
+
+SubTreeCourse::SubTreeCourse(int course_id, Lecture** lectures, int lectures_num, void*
+holder_time_tree){
+    this -> lectures_tree = new AVLTree<Lecture>(lectures, lectures_num);
+    this -> holder_time_tree = holder_time_tree;
+    this -> course_id = course_id;
 }
+
+SubTreeCourse::~SubTreeCourse(){
+    delete this -> lectures_tree;
+    this -> holder_time_tree = nullptr;
+}
+
+//SubTreeCourse::SubTreeCourse(const SubTreeCourse& stc){
+//    this->course_id=stc.course_id;
+//    this->holder_time_tree=stc.holder_time_tree;
+//    this->lectures_tree=stc.lectures_tree;
+//    this -> lectures_tree = new
+//}
+//
+//SubTreeCourse& SubTreeCourse::operator=(const SubTreeCourse& stc){
+//    this->course_id=stc.course_id;
+//    this->holder_time_tree=stc.holder_time_tree;
+//    this->lectures_tree=stc.lectures_tree;
+//    return *this;
+//}
 
 
 

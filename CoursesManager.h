@@ -34,16 +34,14 @@ class SubTreeCourse{
 
 public:
 
-    SubTreeCourse() = default;
+    SubTreeCourse();
     SubTreeCourse(int course_id, Lecture** lectures, int lectures_num, void*
-    holder_time_tree) :
-    course_id(course_id), lectures_tree(lectures, lectures_num),
-    holder_time_tree(holder_time_tree){}
-    ~SubTreeCourse() = default;
-    SubTreeCourse(const SubTreeCourse& stc);
-    SubTreeCourse& operator=(const SubTreeCourse& stc);
+    holder_time_tree);
+    ~SubTreeCourse();
+//    SubTreeCourse(const SubTreeCourse& stc);
+//    SubTreeCourse& operator=(const SubTreeCourse& stc);
     int course_id;
-    AVLTree<Lecture> lectures_tree; // TODO make sure delete properly.
+    AVLTree<Lecture>* lectures_tree; // TODO make sure delete properly.
     void* holder_time_tree;
 
     friend bool operator<(const SubTreeCourse& c1, const SubTreeCourse& c2);
