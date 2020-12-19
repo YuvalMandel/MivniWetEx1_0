@@ -183,8 +183,8 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
     new_lecture_ptr -> watch_num = original_tt_ptr -> time_watched + time;
 
 	while(current_tt_ptr -> bigger != nullptr){
-	    if(current_tt_ptr -> bigger -> time_watched < original_tt_ptr ->
-	    time_watched + time){
+	    if(current_tt_ptr -> bigger -> time_watched >
+	        original_tt_ptr -> time_watched + time){
 	        break;
 	    }
         current_tt_ptr = current_tt_ptr -> bigger;
@@ -196,7 +196,7 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 
 		if (current_stc_node){
             new_lecture_ptr -> holder_sub_tree_course =
-			        &(current_stc_node -> val_ptr);
+			        current_stc_node -> val_ptr;
             (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
             current_stc_node -> val_ptr -> lectures_tree.Insert(new_lecture_ptr);
 		}else{
@@ -288,8 +288,17 @@ void CoursesManager::TimeViewed(int courseID, int classID, int *timeViewed){
 void CoursesManager::GetMostViewedClasses(
         int numOfClasses, int *courses, int *classes){
 
-	int num_Of_Classes_left = timeTree_search(numOfClasses, courses, classes,
+    int  temp = 0;
+
+    if(numOfClasses == 12){
+        temp = 1;
+        temp = 0;
+    }
+
+	int num_Of_Classes_left = timeTree_search(numOfClasses + temp, courses, classes,
                                          this -> largest_time_tree);
+
+
 
 	if(num_Of_Classes_left > 0){
 	    throw std::invalid_argument("FAILURE");
