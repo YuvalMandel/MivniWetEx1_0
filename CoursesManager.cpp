@@ -87,7 +87,7 @@ void CoursesManager::AddCourse (int courseID, int numOfClasses) {
 
 void CoursesManager::RemoveCourse(int courseID){
 
-	Course temp(courseID, temp_size);
+	Course temp(courseID, 1);
 
 	AVLNode<Course> *course_node = this-> course_tree.FindValue(temp);
 
