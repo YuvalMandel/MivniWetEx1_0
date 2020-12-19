@@ -261,7 +261,7 @@ AVLNode<Value>* AVLTree<Value>::RemoveValueInNode(const Value &val,
             }
 
             node -> right_son = RemoveValueInNode(
-                    newNode_ptr -> val_ptr, node -> right_son, false);
+                    *(newNode_ptr -> val_ptr), node -> right_son, false);
 
             newNode_ptr -> right_son = node -> right_son;
             newNode_ptr -> left_son = node -> left_son;
