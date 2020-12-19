@@ -231,12 +231,12 @@ void CoursesManager::WatchClass(int courseID, int classID, int time){
 		}
 
 		SubTreeCourse* new_stc_ptr = new SubTreeCourse;
-        new_stc_ptr -> holder_time_tree = current_tt_ptr;
+        new_stc_ptr -> holder_time_tree = new_tt_ptr;
         new_stc_ptr -> course_id = courseID;
         new_lecture_ptr -> holder_sub_tree_course = new_stc_ptr;
         (course_node -> val_ptr) -> lectures[classID] = new_lecture_ptr;
         new_stc_ptr -> lectures_tree.Insert(new_lecture_ptr);
-        current_tt_ptr -> subtree_tree.Insert(new_stc_ptr);
+        new_tt_ptr -> subtree_tree.Insert(new_stc_ptr);
 	}
 	
 	// If original stc is empty, remove it from the time tree.
@@ -291,7 +291,9 @@ void CoursesManager::GetMostViewedClasses(
 	int num_Of_Classes_left = timeTree_search(numOfClasses, courses, classes,
                                          this -> largest_time_tree);
 
-	if(num_Of_Classes_left > 0){throw std::invalid_argument("FAILURE");}
+	if(num_Of_Classes_left > 0){
+	    throw std::invalid_argument("FAILURE");
+	}
 }
 
 int timeTree_search(
