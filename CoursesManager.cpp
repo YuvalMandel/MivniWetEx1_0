@@ -388,6 +388,7 @@ CoursesManager::~CoursesManager(){
     }
 
     // The course tree destructor will be called in the end of the time trees.
+//    ~(this -> course_tree);
 
 }
 

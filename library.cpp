@@ -76,7 +76,7 @@ StatusType GetMostViewedClasses(void *DS, int numOfClasses, int *courses, int
 }
 
 void Quit(void** DS){
-    CoursesManager *CM = (CoursesManager*)*DS;
+    CoursesManager* CM = (CoursesManager*)*DS;
     delete CM;
     *DS = nullptr;
 }
