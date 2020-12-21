@@ -107,7 +107,7 @@ Course	|	Class
 WatchClass: SUCCESS
 WatchClass: FAILURE
 WatchClass: SUCCESS
-GetMostViewedClasses: ALLOCATION_ERROR
+GetMostViewedClasses: INVALID_INPUT
 WatchClass: INVALID_INPUT
 WatchClass: INVALID_INPUT
 WatchClass: FAILURE

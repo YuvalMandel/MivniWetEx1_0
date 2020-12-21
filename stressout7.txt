@@ -116,7 +116,7 @@ WatchClass: FAILURE
 WatchClass: FAILURE
 WatchClass: INVALID_INPUT
 TimeViewed: FAILURE
-GetMostViewedClasses: INVALID_INPUT
+GetMostViewedClasses: ALLOCATION_ERROR
 WatchClass: SUCCESS
 WatchClass: INVALID_INPUT
 WatchClass: FAILURE

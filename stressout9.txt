@@ -39,7 +39,7 @@ AddCourse: FAILURE
 AddCourse: SUCCESS
 AddCourse: INVALID_INPUT
 RemoveCourse: SUCCESS
-GetMostViewedClasses: INVALID_INPUT
+GetMostViewedClasses: ALLOCATION_ERROR
 GetMostViewedClasses: SUCCESS
 Course	|	Class
 12	|	0

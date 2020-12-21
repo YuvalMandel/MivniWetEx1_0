@@ -1,43 +1,43 @@
 init done.
 AddCourse: SUCCESS
-AddCourse: INVALID_INPUT
 AddCourse: SUCCESS
+AddCourse: INVALID_INPUT
 AddCourse: SUCCESS
 RemoveCourse: FAILURE
 AddCourse: INVALID_INPUT
 AddCourse: SUCCESS
+AddCourse: FAILURE
 AddCourse: INVALID_INPUT
+RemoveCourse: FAILURE
 AddCourse: INVALID_INPUT
-RemoveCourse: INVALID_INPUT
-AddCourse: SUCCESS
-AddCourse: SUCCESS
+AddCourse: FAILURE
 AddCourse: INVALID_INPUT
 AddCourse: INVALID_INPUT
 RemoveCourse: FAILURE
 AddCourse: FAILURE
-AddCourse: FAILURE
+AddCourse: INVALID_INPUT
 AddCourse: INVALID_INPUT
 AddCourse: FAILURE
 RemoveCourse: SUCCESS
+AddCourse: FAILURE
+AddCourse: SUCCESS
 AddCourse: INVALID_INPUT
 AddCourse: SUCCESS
-AddCourse: FAILURE
-AddCourse: INVALID_INPUT
 RemoveCourse: SUCCESS
-AddCourse: SUCCESS
-AddCourse: INVALID_INPUT
-AddCourse: SUCCESS
-AddCourse: INVALID_INPUT
-RemoveCourse: INVALID_INPUT
-AddCourse: SUCCESS
 AddCourse: FAILURE
 AddCourse: FAILURE
+AddCourse: FAILURE
+AddCourse: FAILURE
+RemoveCourse: SUCCESS
+AddCourse: FAILURE
+AddCourse: INVALID_INPUT
+AddCourse: SUCCESS
 AddCourse: INVALID_INPUT
 RemoveCourse: FAILURE
 AddCourse: FAILURE
-AddCourse: INVALID_INPUT
+AddCourse: SUCCESS
 AddCourse: FAILURE
-AddCourse: INVALID_INPUT
+AddCourse: SUCCESS
 RemoveCourse: FAILURE
 GetMostViewedClasses: SUCCESS
 Course	|	Class
@@ -54,25 +54,17 @@ Course	|	Class
 12	|	10
 12	|	11
 12	|	12
-12	|	13
-12	|	14
-12	|	15
-12	|	16
-12	|	17
-12	|	18
-12	|	19
-12	|	20
-12	|	21
-12	|	22
-12	|	23
-12	|	24
-12	|	25
-12	|	26
-12	|	27
-12	|	28
-12	|	29
-12	|	30
+15	|	0
+15	|	1
+15	|	2
 --End of most viewed classes--
+GetMostViewedClasses: SUCCESS
+Course	|	Class
+12	|	0
+--End of most viewed classes--
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
 GetMostViewedClasses: SUCCESS
 Course	|	Class
 12	|	0
@@ -88,113 +80,62 @@ Course	|	Class
 12	|	10
 12	|	11
 12	|	12
-12	|	13
-12	|	14
-12	|	15
-12	|	16
-12	|	17
-12	|	18
-12	|	19
-12	|	20
-12	|	21
-12	|	22
-12	|	23
-12	|	24
-12	|	25
-12	|	26
-12	|	27
+15	|	0
+15	|	1
+15	|	2
 --End of most viewed classes--
 WatchClass: SUCCESS
-WatchClass: FAILURE
-WatchClass: SUCCESS
-GetMostViewedClasses: ALLOCATION_ERROR
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
 WatchClass: SUCCESS
 WatchClass: FAILURE
+WatchClass: INVALID_INPUT
 WatchClass: SUCCESS
 WatchClass: INVALID_INPUT
 WatchClass: INVALID_INPUT
+WatchClass: SUCCESS
+WatchClass: FAILURE
+TimeViewed: FAILURE
+GetMostViewedClasses: SUCCESS
+Course	|	Class
+16	|	30
+104022	|	4
+104022	|	3
+16	|	13
+12	|	0
+12	|	1
+12	|	2
+--End of most viewed classes--
 WatchClass: INVALID_INPUT
+WatchClass: SUCCESS
+WatchClass: SUCCESS
+TimeViewed: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: SUCCESS
+WatchClass: SUCCESS
 TimeViewed: 0
-GetMostViewedClasses: SUCCESS
-Course	|	Class
-12	|	30
-12	|	10
-12	|	8
-44252	|	8
-12	|	0
-12	|	1
-12	|	2
-12	|	3
-12	|	4
-12	|	5
-12	|	6
-12	|	7
-12	|	9
-12	|	11
-12	|	12
-12	|	13
-12	|	14
-12	|	15
-12	|	16
-12	|	17
-12	|	18
-12	|	19
-12	|	20
-12	|	21
-12	|	22
-12	|	23
---End of most viewed classes--
-WatchClass: SUCCESS
 WatchClass: FAILURE
 WatchClass: FAILURE
-TimeViewed: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: SUCCESS
 WatchClass: INVALID_INPUT
 TimeViewed: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: SUCCESS
-TimeViewed: FAILURE
-GetMostViewedClasses: SUCCESS
-Course	|	Class
-12	|	15
-14	|	10
-12	|	30
-12	|	10
-12	|	8
-44252	|	8
---End of most viewed classes--
+GetMostViewedClasses: INVALID_INPUT
 WatchClass: SUCCESS
 WatchClass: INVALID_INPUT
 WatchClass: FAILURE
-TimeViewed: FAILURE
+TimeViewed: 0
 AddCourse: INVALID_INPUT
-RemoveCourse: SUCCESS
+RemoveCourse: FAILURE
 WatchClass: SUCCESS
 GetMostViewedClasses: SUCCESS
 Course	|	Class
-44252	|	16
-12	|	15
-14	|	10
-234218	|	9
-12	|	30
---End of most viewed classes--
-TimeViewed: INVALID_INPUT
-GetMostViewedClasses: SUCCESS
-Course	|	Class
-44252	|	16
-12	|	15
-14	|	10
-234218	|	9
-12	|	30
-12	|	10
-12	|	8
-44252	|	8
-17	|	10
+16	|	30
+16	|	7
+104022	|	4
+236319	|	17
+16	|	4
+104022	|	3
+104293	|	28
+104293	|	31
+16	|	13
+104293	|	29
 12	|	0
 12	|	1
 12	|	2
@@ -203,49 +144,63 @@ Course	|	Class
 12	|	5
 12	|	6
 12	|	7
+12	|	8
 12	|	9
+12	|	10
 12	|	11
 12	|	12
-12	|	13
-12	|	14
+15	|	0
+15	|	1
+15	|	2
+15	|	3
+--End of most viewed classes--
+TimeViewed: INVALID_INPUT
+GetMostViewedClasses: SUCCESS
+Course	|	Class
+16	|	30
+16	|	7
+104022	|	4
+236319	|	17
+16	|	4
+104022	|	3
+104293	|	28
 --End of most viewed classes--
 WatchClass: INVALID_INPUT
+TimeViewed: 23
 TimeViewed: INVALID_INPUT
-TimeViewed: 0
 TimeViewed: 0
 GetMostViewedClasses: SUCCESS
 Course	|	Class
-44252	|	16
-12	|	15
-14	|	10
-234218	|	9
-12	|	30
-12	|	10
-12	|	8
-44252	|	8
-17	|	10
-12	|	0
-12	|	1
-12	|	2
-12	|	3
-12	|	4
-12	|	5
+16	|	30
+16	|	7
+104022	|	4
 --End of most viewed classes--
 TimeViewed: INVALID_INPUT
 WatchClass: INVALID_INPUT
 TimeViewed: 0
-TimeViewed: 25
+TimeViewed: INVALID_INPUT
 GetMostViewedClasses: SUCCESS
 Course	|	Class
-44252	|	16
-12	|	15
-14	|	10
-234218	|	9
-12	|	30
-12	|	10
-12	|	8
-44252	|	8
-17	|	10
+16	|	30
+16	|	7
+104022	|	4
+--End of most viewed classes--
+TimeViewed: FAILURE
+TimeViewed: INVALID_INPUT
+WatchClass: FAILURE
+TimeViewed: INVALID_INPUT
+GetMostViewedClasses: SUCCESS
+Course	|	Class
+16	|	30
+16	|	7
+104022	|	4
+236319	|	17
+16	|	4
+104022	|	3
+104293	|	28
+104293	|	31
+16	|	13
+104293	|	29
 12	|	0
 12	|	1
 12	|	2
@@ -254,56 +209,38 @@ Course	|	Class
 12	|	5
 12	|	6
 12	|	7
+12	|	8
 12	|	9
+12	|	10
 12	|	11
 12	|	12
-12	|	13
-12	|	14
-12	|	16
-12	|	17
-12	|	18
-12	|	19
-12	|	20
---End of most viewed classes--
-TimeViewed: 0
-TimeViewed: FAILURE
-WatchClass: INVALID_INPUT
-TimeViewed: FAILURE
-GetMostViewedClasses: SUCCESS
-Course	|	Class
-44252	|	16
-12	|	15
-14	|	10
-234218	|	9
-12	|	30
-12	|	10
-12	|	8
-44252	|	8
-17	|	10
-12	|	0
-12	|	1
-12	|	2
-12	|	3
-12	|	4
-12	|	5
+15	|	0
+15	|	1
+15	|	2
+15	|	3
+15	|	4
+15	|	5
+15	|	6
+15	|	7
 --End of most viewed classes--
 TimeViewed: 0
 TimeViewed: 0
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: SUCCESS
-TimeViewed: 0
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+TimeViewed: FAILURE
 GetMostViewedClasses: SUCCESS
 Course	|	Class
-44252	|	16
-12	|	15
-14	|	10
-234218	|	9
-12	|	30
-44252	|	8
-12	|	10
-12	|	8
-17	|	10
+16	|	30
+16	|	7
+104022	|	4
+236319	|	17
+16	|	4
+104022	|	3
+104293	|	28
+104293	|	31
+16	|	13
+104293	|	29
 12	|	0
 12	|	1
 12	|	2
@@ -312,184 +249,200 @@ Course	|	Class
 12	|	5
 12	|	6
 12	|	7
+12	|	8
 12	|	9
+12	|	10
+12	|	11
+12	|	12
+15	|	0
+15	|	1
+15	|	2
+15	|	3
+15	|	4
+15	|	5
 --End of most viewed classes--
-RemoveCourse: SUCCESS
-AddCourse: INVALID_INPUT
-WatchClass: SUCCESS
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: SUCCESS
-WatchClass: SUCCESS
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-TimeViewed: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-TimeViewed: INVALID_INPUT
-RemoveCourse: SUCCESS
-AddCourse: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: FAILURE
-TimeViewed: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-TimeViewed: FAILURE
 RemoveCourse: FAILURE
 AddCourse: INVALID_INPUT
 WatchClass: INVALID_INPUT
 WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: FAILURE
+TimeViewed: INVALID_INPUT
+WatchClass: SUCCESS
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
 WatchClass: FAILURE
 WatchClass: INVALID_INPUT
 WatchClass: SUCCESS
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
 WatchClass: SUCCESS
+WatchClass: FAILURE
 WatchClass: SUCCESS
+TimeViewed: 0
+RemoveCourse: SUCCESS
+AddCourse: INVALID_INPUT
+WatchClass: SUCCESS
+WatchClass: INVALID_INPUT
 WatchClass: FAILURE
 WatchClass: FAILURE
 WatchClass: FAILURE
 WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: SUCCESS
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+TimeViewed: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+TimeViewed: INVALID_INPUT
+RemoveCourse: SUCCESS
+AddCourse: SUCCESS
+WatchClass: SUCCESS
+WatchClass: INVALID_INPUT
+WatchClass: SUCCESS
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: SUCCESS
+WatchClass: SUCCESS
+WatchClass: FAILURE
+TimeViewed: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: SUCCESS
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
 WatchClass: FAILURE
 TimeViewed: 0
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-TimeViewed: FAILURE
 GetMostViewedClasses: SUCCESS
 Course	|	Class
-14	|	14
-44252	|	16
-14	|	10
-234218	|	9
-44252	|	8
-236319	|	9
+16	|	7
+16	|	30
+104022	|	4
+15	|	5
+236319	|	14
+104293	|	32
+236319	|	17
+16	|	4
+104022	|	3
+16	|	20
 236319	|	0
-234218	|	2
-236319	|	4
-14	|	6
-14	|	9
+104022	|	5
+104293	|	28
+16	|	23
+104293	|	31
+16	|	13
+16	|	16
 --End of most viewed classes--
-RemoveCourse: SUCCESS
+RemoveCourse: INVALID_INPUT
 AddCourse: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
 WatchClass: SUCCESS
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: FAILURE
 WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
 WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-TimeViewed: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
 TimeViewed: INVALID_INPUT
-RemoveCourse: FAILURE
-AddCourse: SUCCESS
-WatchClass: FAILURE
 WatchClass: INVALID_INPUT
 WatchClass: FAILURE
 WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
 WatchClass: SUCCESS
 WatchClass: INVALID_INPUT
 WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: SUCCESS
-WatchClass: FAILURE
-TimeViewed: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: SUCCESS
-WatchClass: SUCCESS
 WatchClass: FAILURE
 WatchClass: SUCCESS
 WatchClass: SUCCESS
 WatchClass: INVALID_INPUT
+WatchClass: FAILURE
 WatchClass: INVALID_INPUT
-TimeViewed: 26
+TimeViewed: 0
 RemoveCourse: SUCCESS
-AddCourse: SUCCESS
+AddCourse: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
 WatchClass: FAILURE
 WatchClass: SUCCESS
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+TimeViewed: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: SUCCESS
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: SUCCESS
+WatchClass: FAILURE
+WatchClass: SUCCESS
+TimeViewed: FAILURE
+RemoveCourse: FAILURE
+AddCourse: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: SUCCESS
+WatchClass: FAILURE
+WatchClass: FAILURE
+WatchClass: FAILURE
 WatchClass: SUCCESS
 WatchClass: INVALID_INPUT
-WatchClass: FAILURE
 WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
+WatchClass: SUCCESS
 TimeViewed: INVALID_INPUT
 WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
+WatchClass: INVALID_INPUT
+WatchClass: FAILURE
 WatchClass: SUCCESS
-WatchClass: INVALID_INPUT
 WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: FAILURE
-WatchClass: INVALID_INPUT
-WatchClass: INVALID_INPUT
 WatchClass: INVALID_INPUT
 quit done.
