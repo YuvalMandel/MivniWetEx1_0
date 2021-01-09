@@ -2,11 +2,16 @@
 #include"CoursesManager.h"
 
 void *Init() {
+
     CoursesManager *DS = new CoursesManager();
+
     return (void*)DS;
+
 }
 StatusType AddCourse(void *DS, int courseID, int numOfClasses) {
+
     if(DS == nullptr || courseID <= 0 || numOfClasses <= 0) return INVALID_INPUT;
+
     try{
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> AddCourse(courseID, numOfClasses);
@@ -15,11 +20,14 @@ StatusType AddCourse(void *DS, int courseID, int numOfClasses) {
         if(std::string(e.what()) == "INVALID_INPUT") return INVALID_INPUT;
         if(std::string(e.what()) == "FAILURE") return FAILURE;
     }
+
     return SUCCESS;
 }
 
 StatusType RemoveCourse(void *DS, int courseID) {
+
     if(DS == nullptr || courseID <= 0) return INVALID_INPUT;
+
     try{
         CoursesManager* CM = (CoursesManager*)DS;
         CM -> RemoveCourse(courseID);
